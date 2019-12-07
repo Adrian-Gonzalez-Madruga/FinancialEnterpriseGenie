@@ -16,5 +16,6 @@ namespace FinancialEnterpriseGenie.Models
         public DateTime ReceiveDate { get; set; }
         public Distributor Distributor { get; set; }
         public User User { get; set; }
+        public Item Item { get; set; }
     }
 }
