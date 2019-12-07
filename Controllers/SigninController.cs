@@ -17,18 +17,28 @@ namespace FinancialEnterpriseGenie.Controllers
 
         public IActionResult Login()
         {
-            var user = new User() { FirstName = "Connor", LastName = "Clarckson" };
-            return RedirectToAction("Index", "Stats", user);
+            return View();
         }
 
         [HttpPost]
         public IActionResult Login(Credentials _credentials)
         {
+            var user = _context.Users.FirstOrDefault(u=> (u.Credentials.Email == _credentials.Email));
+            if (user == null)
+            {
+                ModelState.AddModelError("Email", "email not registered as account");
+            }
+
+            if (user != null && user.Credentials.Password != _credentials.Password)
+            {
+                ModelState.AddModelError("Password", "incorrect password");
+            }
+
             if (!ModelState.IsValid)
             {
                 return View();
             }
-            return RedirectToAction("Index", "Stats");
+            return RedirectToAction("Index", "Stats", user);
         }
 
     }
