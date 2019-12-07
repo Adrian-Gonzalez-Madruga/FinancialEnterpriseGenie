@@ -18,7 +18,7 @@ namespace FinancialEnterpriseGenie
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddControllersWithViews();
             services.AddDbContext<GenieDatabase>(options =>
                 options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=GenieDb;")
             );
@@ -33,6 +33,7 @@ namespace FinancialEnterpriseGenie
             }
             app.UseStaticFiles();
             app.UseStatusCodePages();
+            app.UseRouting();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
