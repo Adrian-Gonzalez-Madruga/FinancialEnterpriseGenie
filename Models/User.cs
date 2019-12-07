@@ -13,5 +13,6 @@ namespace FinancialEnterpriseGenie.Models
         public string Address { get; set; }
         public string CreditCardNumber { get; set; }
         public DateTime DateOfBirth { get; set; }
+        public Credentials Credentials { get; set; }
     }
 }
