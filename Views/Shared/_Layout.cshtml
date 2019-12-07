@@ -18,19 +18,19 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="@Url.Action("Index", "Home")">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" asp-controller="Home" asp-action="Index">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("Index", "Order")">Order</a>
+                <a class="nav-link" asp-controller="Order" asp-action="Index">Order</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("Index", "Reciept")">Reciept</a>
+                <a class="nav-link" asp-controller="Receipt" asp-action="Index">Reciept</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("Login", "Signin")">Signin</a>
+                <a class="nav-link" asp-controller="Signin" asp-action="Login">Signin</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("Index", "Stats")">Stats</a>
+                <a class="nav-link" asp-controller="Stats" asp-action="Index">Stats</a>
             </li>
         </ul>
     </div>
