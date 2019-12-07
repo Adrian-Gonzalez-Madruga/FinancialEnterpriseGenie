@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FinancialEnterpriseGenie.Controllers
 {
-    public class RecieptController : Controller
+    public class ReceiptController : Controller
     {
         public IActionResult Index()
         {
