@@ -27,9 +27,8 @@ namespace FinancialEnterpriseGenie.Controllers
             if (user == null)
             {
                 ModelState.AddModelError("Email", "email not registered as account");
-            }
-
-            if (user != null && user.Credentials.Password != _credentials.Password)
+            } 
+            else if (user.Credentials.Password != _credentials.Password)
             {
                 ModelState.AddModelError("Password", "incorrect password");
             }
