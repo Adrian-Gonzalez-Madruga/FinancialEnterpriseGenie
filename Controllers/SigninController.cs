@@ -9,15 +9,26 @@ namespace FinancialEnterpriseGenie.Controllers
 {
     public class SigninController : Controller
     {
+        private GenieDatabase _context;
+        public SigninController(GenieDatabase context)
+        {
+            _context = context;
+        }
+
         public IActionResult Login()
         {
-            return View();
+            var user = new User() { FirstName = "Connor", LastName = "Clarckson" };
+            return RedirectToAction("Index", "Stats", user);
         }
 
         [HttpPost]
         public IActionResult Login(Credentials _credentials)
         {
-            return View();
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            return RedirectToAction("Index", "Stats");
         }
 
     }

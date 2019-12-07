@@ -1,4 +1,4 @@
-﻿
+﻿@model User
 @{
     Layout = "_Layout";
 }
@@ -13,7 +13,7 @@
 </head>
 <body>
     <h2>
-        Stats
+        Stats: @Model.FirstName @Model.LastName
     </h2>
 </body>
 </html>
