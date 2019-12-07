@@ -1,0 +1,84 @@
+﻿@model SignupModel
+@{
+    ViewData["Title"] = "signup";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-sm-12 col-md-8 col-lg-6">
+            <div style="height: 5vh"></div>
+            <div class="text-center">
+                <h1 class="display-4">Sign Up!</h1>
+            </div>
+
+            <form asp-action="SignupForm" method="post">
+                <div class="form-group">
+                    <label asp-for="Email">Email</label>
+                    <input class="form-control" type="email" asp-for="Email" placeholder="Email Address" />
+                    <span class="text-danger" asp-validation-for="Email"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ConfirmEmail"></label>
+                    <input class="form-control" type="email" asp-for="ConfirmEmail" placeholder="Confirm Email Address" />
+                    <span class="text-danger" asp-validation-for="ConfirmEmail"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <input class="form-control" type="password" asp-for="Password" placeholder="Password" />
+                    <span class="text-danger" asp-validation-for="Password"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword"></label>
+                    <input class="form-control" type="password" asp-for="ConfirmPassword" placeholder="Confirm Password" />
+                    <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SecurityQuestoin"></label>
+                    <select class="form-control" type="text" asp-for="SecurityQuestoin" asp-items="new SelectList(Credentials.SecurityQuestions)">
+                        <option>Security Question...</option>
+                    </select>
+                    <span class="text-danger" asp-validation-for="SecurityQuestoin"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SecurityAnswer"></label>
+                    <input class="form-control" type="text" asp-for="SecurityAnswer" placeholder="Security Answer" />
+                    <span class="text-danger" asp-validation-for="SecurityAnswer"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FirstName"></label>
+                    <input class="form-control" type="text" asp-for="FirstName" placeholder="First Name" />
+                    <span class="text-danger" asp-validation-for="FirstName"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LastName"></label>
+                    <input class="form-control" type="text" asp-for="LastName" placeholder="Last Name" />
+                    <span class="text-danger" asp-validation-for="LastName"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Address"></label>
+                    <input class="form-control" type="text" asp-for="Address" placeholder="Address" />
+                    <span class="text-danger" asp-validation-for="Address"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CreditCardNumber"></label>
+                    <input class="form-control" type="text" asp-for="CreditCardNumber" placeholder="XXXX-XXXX-XXXX-XXXX" />
+                    <span class="text-danger" asp-validation-for="CreditCardNumber"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DateOfBirth"></label>
+                    <input class="form-control" type="date" asp-for="DateOfBirth" placeholder="Date of Birth" />
+                    <span class="text-danger" asp-validation-for="DateOfBirth"></span>
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-primary btn-block" type="submit">Sign Up</button>
+                </div>
+            </form>
+            <div style="height: 5vh"></div>
+        </div>
+        <div class="col"></div>
+    </div>
+
+</div>
+

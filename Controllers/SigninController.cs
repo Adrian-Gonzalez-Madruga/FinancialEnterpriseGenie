@@ -15,13 +15,13 @@ namespace FinancialEnterpriseGenie.Controllers
             _context = context;
         }
 
-        public IActionResult Login()
+        public IActionResult LoginForm()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Login(Credentials _credentials)
+        public IActionResult LoginForm(Credentials _credentials)
         {
             var user = _context.Users.FirstOrDefault(u=> (u.Credentials.Email == _credentials.Email));
             if (user == null)

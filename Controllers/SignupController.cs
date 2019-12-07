@@ -9,25 +9,21 @@ namespace FinancialEnterpriseGenie.Controllers
 {
     public class SignupController : Controller
     {
-        public IActionResult Signup()
+        public IActionResult SignupForm()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Signup(Credentials _credentials, string _confirmPassword)
+        public IActionResult SignupForm(SignupModel _signupModel)
         {
-            if (_credentials.Password != _confirmPassword)
-            {
-                ModelState.AddModelError("Password", "Passowrds do not match");
-            }
 
             if (!ModelState.IsValid)
             {
                 return View();
             }
-
             return Content("success");
         }
+
     }
 }

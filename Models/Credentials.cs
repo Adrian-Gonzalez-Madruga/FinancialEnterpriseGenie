@@ -15,5 +15,12 @@ namespace FinancialEnterpriseGenie.Models
         public string Password { get; set; }
         public string SecurityQuestion { get; set; }
         public string SecurityAnswer { get; set; }
+
+        public static string[] SecurityQuestions = new string[]
+        {
+            "a",
+            "b",
+            "c"
+        };
     }
 }
