@@ -9,12 +9,12 @@
     <div class="form-group">
         <label asp-for="Email">Email</label>
         <input class="form-control" type="email" asp-for="Email" placeholder="Email Address" />
-        <span class="text-danger" asp-validation-for="Email"></span>
+        <span class="text-danger small" asp-validation-for="Email"></span>
     </div>
     <div class="form-group">
         <label asp-for="Password">Password</label>
         <input class="form-control" type="password" asp-for="Password" placeholder="Password" />
-        <span class="text-danger" asp-validation-for="Password"></span>
+        <span class="text-danger small" asp-validation-for="Password"></span>
     </div>
     <div class="form-group">
         <a class="text-info" asp-controller="Signin" asp-action="ForgotPasswordForm">Forgot Password</a><br />
