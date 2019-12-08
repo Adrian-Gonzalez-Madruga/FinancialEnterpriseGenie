@@ -1,38 +1,26 @@
 ﻿@model Credentials
 @{
-    Layout = "_Layout";
+    ViewData["Title"] = "signin";
+    Layout = "_formLayout";
 }
 
-<div class="container">
-    <div class="row">
-        <div class="col"></div>
-        <div class="col-6">
-            <div style="height: 5vh"></div>
-            <div class="text-center">
-                <h1 class="display-4">Login</h1>
-            </div>
-
-            <form asp-action="LoginForm" method="post">
-                <div class="form-group">
-                    <label asp-for="Email">Email</label>
-                    <input class="form-control" type="email" asp-for="Email" placeholder="Email Address" />
-                    <span class="text-danger" asp-validation-for="Email"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Password">Password</label>
-                    <input class="form-control" type="password" asp-for="Password" placeholder="Password" />
-                    <span class="text-danger" asp-validation-for="Password"></span>
-                </div>
-                <div class="form-group">
-                    <a asp-controller="Signin" asp-action="ForgotPassword">Forgot Password</a><br />
-                    <a asp-controller="Signup" asp-action="SignupForm">Not a member already? Sign up!</a>
-                </div>
-                <div class="text-center">
-                    <button class="btn btn-primary btn-block" type="submit">Login</button>
-                </div>
-            </form>
-        </div>
-        <div class="col"></div>
+<form asp-action="LoginForm" method="post" class="form-block border bg-grey">
+    <h1 class="display-4 text-center">Login</h1>
+    <div class="form-group">
+        <label asp-for="Email">Email</label>
+        <input class="form-control" type="email" asp-for="Email" placeholder="Email Address" />
+        <span class="text-danger" asp-validation-for="Email"></span>
     </div>
-
-</div>
+    <div class="form-group">
+        <label asp-for="Password">Password</label>
+        <input class="form-control" type="password" asp-for="Password" placeholder="Password" />
+        <span class="text-danger" asp-validation-for="Password"></span>
+    </div>
+    <div class="form-group">
+        <a class="text-info" asp-controller="Signin" asp-action="ForgotPasswordForm">Forgot Password</a><br />
+        <a class="text-info" asp-controller="Signup" asp-action="SignupForm">Not a member already? Sign up!</a>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-info btn-block" type="submit">Login</button>
+    </div>
+</form>

@@ -29,7 +29,7 @@ namespace FinancialEnterpriseGenie.Controllers
             if (user == null)
             {
                 ModelState.AddModelError("Email", "email not registered as account");
-            } 
+            }
             else if (user.Credentials.Password != _credentials.Password)
             {
                 ModelState.AddModelError("Password", "incorrect password");
@@ -42,9 +42,9 @@ namespace FinancialEnterpriseGenie.Controllers
             return RedirectToAction("Index", "Stats", user);
         }
 
-        public IActionResult ForgotPassword()
+        public IActionResult ForgotPasswordForm()
         {
-            return View("ForgotPassword");
+            return View("ForgotPasswordForm");
         }
 
     }

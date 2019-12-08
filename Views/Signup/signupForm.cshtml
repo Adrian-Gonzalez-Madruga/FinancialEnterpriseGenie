@@ -1,16 +1,16 @@
 ﻿@model SignupModel
 @{
     ViewData["Title"] = "signup";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "_Layout";
 }
 
 <div class="container">
     <div class="row">
         <div class="col"></div>
         <div class="col-sm-12 col-md-8 col-lg-6">
-            <div class="text-center">
-                <h1 class="display-4">Sign Up!</h1>
-            </div>
+            <div class="heightpad"></div>
+            <h1 class="display-4 text-center">Sign Up!</h1>
+            <div class="heightpad"></div>
 
             <form asp-action="SignupForm" method="post">
                 <div class="form-group">

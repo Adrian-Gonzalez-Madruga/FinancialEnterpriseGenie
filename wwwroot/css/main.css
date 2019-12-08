@@ -1,3 +1,16 @@
-﻿.rounded {
-    border-radius: 25px;
+﻿.form-block {
+    border-radius: 12px;
+    padding: 15px;
+}
+
+.bg-grey {
+    background-color: #dedede;
+}
+
+.vpad {
+    height: 10vh;
+}
+
+.vpad-sm {
+    height: 2vh;
 }
