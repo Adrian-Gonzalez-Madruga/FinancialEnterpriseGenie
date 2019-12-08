@@ -71,11 +71,11 @@ namespace FinancialEnterpriseGenie.Controllers
             var receipt = new Receipt();
             receipt.Distributor = distributor;
             receipt.Item = item;
-            receipt.Tax = 0.13 * ((item.Price * quantity) + distributor.ShipPrice);
-            receipt.ReceiveDate = DateTime.Now;
+            receipt.Tax = Math.Round((0.13 * ((item.Price * quantity) + distributor.ShipPrice)), 2);
+            receipt.ReceiveDate = DateTime.Now.AddDays(distributor.TimeToShip);
             receipt.Date = DateTime.Now;
             receipt.Quantity = quantity;
-            receipt.Total = receipt.Tax + (item.Price * quantity) + distributor.ShipPrice;
+            receipt.Total = Math.Round((receipt.Tax + (item.Price * quantity) + distributor.ShipPrice), 2);
             
 
 

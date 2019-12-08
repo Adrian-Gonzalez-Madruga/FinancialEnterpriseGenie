@@ -1,10 +1,40 @@
-﻿@model FinancialEnterpriseGenie.Models.Receipt
+﻿@using System.Net.NetworkInformation
+@model FinancialEnterpriseGenie.Models.Receipt
 @{
     ViewData["Title"] = "Receipt";
+    Layout = "_Layout";
 }
+<style>
+    div {
+        padding-bottom: 2vh
+    }
+</style>
+<div style="height: 5vh"></div>
+    <div class="text-center container" >
+        <h1>Confirm Order</h1>
+        <div>
 
-<h1>Receipt</h1>
+            <div>
+                <p>@Model.Item.ProductName | $@Math.Round(Model.Item.Price, 2) | @Model.Quantity @if(Model.Quantity > 1) {<span>units</span>} else{<span>unit</span>}</p>
+                <label>Shipping Method: @Model.Distributor.ShippingMethod | @Model.Distributor.TimeToShip day(s)</label>
+            </div>
+        </div>
+        <div>
+            <div>
+                <label>
+                    Today's Date: @Model.Date
+                </label>
+                <p>Estimated Delivery Date: @Model.ReceiveDate</p>
+            </div>
+        </div>
+        <div>
+            <div>
+                <label>Shipping Price: $@Math.Round(Model.Distributor.ShipPrice, 2)</label>
+                <p>Tax: @Model.Tax</p>
+                <p>Total: @Model.Total</p>
+            </div>
+        </div>
 
-<div>
-    <label>@Model.Distributor.ShippingMethod</label>
-</div>
+
+
+    </div>
