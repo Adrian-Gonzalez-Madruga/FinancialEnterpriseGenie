@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@{
+    ViewData["Title"] = "statistics";
+    Layout = "_Layout";
+}
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>index</title>
+@section head {
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <script>
         window.onload = function () {
@@ -14,7 +14,7 @@
                     text: "Ice Cream Sales Over a Month"
                 },
                 axisX: {
-                    valueFormatString: "DD MMM"   
+                    valueFormatString: "DD MMM"
                 },
                 axisY: {
                     title: "Sales (in USD)",
@@ -43,8 +43,53 @@
 
         }
     </script>
-</head>
-<body>
-    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
-</body>
-</html>
+}
+
+<div class="row m-3">
+    <div class="col-4">
+        <div class="form-block bg-grey">
+            <div class="display-4">Icecream Sales</div>
+
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dui eros, placerat nec pretium quis,
+            imperdiet at lectus. Etiam lacinia sagittis elit, eget accumsan arcu facilisis vitae. Donec maximus mauris
+            id tincidunt convallis. Maecenas ut sollicitudin nibh, nec porttitor est. Integer vitae sapien suscipit, iaculis arcu sed,
+            aliquet massa. Sed ut rutrum erat, nec ultrices mauris. Vestibulum at ex sollicitudin, dignissim dolor a, tempus libero.
+
+            <div class="vpad-sm"></div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-block bg-info text-light">
+                        <div class="lead text-light">Extra Info</div>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dui eros, placerat nec pretium quis,
+                        imperdiet at lectus. Etiam lacinia sagittis elit, eget accumsan arcu facilisis vitae. Donec maximus mauris
+                        id tincidunt convallis. Maecenas ut sollicitudin nibh, nec porttitor est. Integer vitae sapien suscipit, iaculis arcu sed,
+                        aliquet massa. Sed ut rutrum erat, nec ultrices mauris. Vestibulum at ex sollicitudin, dignissim dolor a, tempus libero.
+
+                        <div class="vpad-sm"></div>
+                        <div class="form-block bg-warning text-dark">
+                            even more additional info
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-block bg-info text-light">
+                        <div class="lead text-light">Extra Info</div>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dui eros, placerat nec pretium quis,
+                        imperdiet at lectus. Etiam lacinia sagittis elit, eget accumsan arcu facilisis vitae. Donec maximus mauris
+                    </div>
+                    <br />
+                    <div class="form-block bg-warning text-dark">
+                        <div class="lead">Extra Info</div>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dui eros, placerat nec pretium quis,
+                        imperdiet at lectus. Etiam lacinia sagittis elit, eget accumsan arcu facilisis vitae. Donec maximus mauris
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <div class="col-8 border rounded">
+        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+    </div>
+</div>
+
