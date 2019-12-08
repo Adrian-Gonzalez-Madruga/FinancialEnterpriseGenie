@@ -28,7 +28,7 @@
             </div>
             <div class="form-group">
                 <label for="quantity">Amount</label>
-                <input type="number" class="form-group" id="quantity" name="quantity"/>
+                <input type="number" id="quantity" name="quantity"/>
             </div>
 
             <div class="form-group">
@@ -37,7 +37,14 @@
                     @foreach (var ship in Model.DistributorId)
                     {
                         <option value="@ship.Id">
-                            @ship.ShippingMethod | $@ship.ShipPrice | @ship.TimeToShip Days
+                            @ship.ShippingMethod | $@ship.ShipPrice | @ship.TimeToShip
+                            @if(ship.TimeToShip > 1){
+                            <span>days</span>
+                            }
+                            else
+                            {
+                                <span>day</span>
+                            }
                         </option>
 
                     }

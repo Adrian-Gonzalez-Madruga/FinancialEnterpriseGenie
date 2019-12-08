@@ -5,21 +5,42 @@
     Layout = "_Layout";
 }
 <style>
-    div {
+    .test {
+        border-color: black;
+
         padding-bottom: 2vh
     }
 </style>
 <div style="height: 5vh"></div>
     <div class="text-center container" >
-        <h1>Confirm Order</h1>
-        <div>
+        <h1 class="test">Confirm Order</h1>
+        <div class="test">
 
             <div>
-                <p>@Model.Item.ProductName | $@Math.Round(Model.Item.Price, 2) | @Model.Quantity @if(Model.Quantity > 1) {<span>units</span>} else{<span>unit</span>}</p>
-                <label>Shipping Method: @Model.Distributor.ShippingMethod | @Model.Distributor.TimeToShip day(s)</label>
+                <p>@Model.Item.ProductName | $@Math.Round(Model.Item.Price, 2) each | @Model.Quantity 
+                    @if (Model.Quantity > 1)
+                    {
+                        <span>units</span>
+                    }
+                    else
+                    {
+                        <span>unit</span>
+                    }
+                    </p>
+
+                <label>Shipping Method: @Model.Distributor.ShippingMethod | @Model.Distributor.TimeToShip
+                    @if (Model.Distributor.TimeToShip > 1)
+                    {
+                        <span>days</span>
+                    }
+                    else
+                    {
+                        <span>day</span>
+                    }
+                    </label>
             </div>
         </div>
-        <div>
+        <div class="test">
             <div>
                 <label>
                     Today's Date: @Model.Date
@@ -27,11 +48,11 @@
                 <p>Estimated Delivery Date: @Model.ReceiveDate</p>
             </div>
         </div>
-        <div>
+        <div class="test">
             <div>
                 <label>Shipping Price: $@Math.Round(Model.Distributor.ShipPrice, 2)</label>
-                <p>Tax: @Model.Tax</p>
-                <p>Total: @Model.Total</p>
+                <p>Tax: $@Model.Tax</p>
+                <p>Total: $@Model.Total</p>
             </div>
         </div>
 
