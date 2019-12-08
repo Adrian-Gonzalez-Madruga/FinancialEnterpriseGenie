@@ -42,5 +42,10 @@ namespace FinancialEnterpriseGenie.Controllers
             return RedirectToAction("Index", "Stats", user);
         }
 
+        public IActionResult ForgotPassword()
+        {
+            return View("ForgotPassword");
+        }
+
     }
 }

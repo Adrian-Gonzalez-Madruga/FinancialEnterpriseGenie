@@ -18,9 +18,9 @@ namespace FinancialEnterpriseGenie.Models
 
         public static string[] SecurityQuestions = new string[]
         {
-            "a",
-            "b",
-            "c"
+            "Favourite videogame",
+            "What was your first pet's name? ",
+            "What is your mother's maiden name?"
         };
     }
 }
