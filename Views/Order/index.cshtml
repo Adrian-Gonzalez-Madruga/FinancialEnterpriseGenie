@@ -1,48 +1,49 @@
-﻿
+﻿@model FinancialEnterpriseGenie.Models.ItemDistributorList
 @{
     Layout = "_Layout";
 }
+<style>
+    .form-group {
+        padding-bottom: 50px
+    }
+</style>
+    <div style="text-align: center;" class="container">
+        <div class="form-group">
+            <h1>Order Form</h1>
+        </div>
 
-<div>
-    <h1>Welcome User!</h1>
-</div>
+        <form asp-action="Confirmation" method="post">
 
-<form>
-    <div class="form-group">
-        <label for="exampleFormControlInput1">Email address</label>
-        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-    </div>
-    <div class="form-group">
-        <label for="ItemSelect">Catalog</label>
-        <select class="form-control" id="ItemSelect">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-        </select>
-    </div>
-    <div>
-        Price: $0.00
-    </div>
-    <div class="form-group">
-        <label for="ShipSelect">Shipping Method</label>
-        <select class="form-control" id="ShipSelect">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-        </select>
-    </div>
-    <div>
-        Shipping Cost
-    </div>
-    <div>
-        Tax (HST 13%): $0.00
-    </div>
-    <div>
-        Total Price: $0.00
-    </div>
+            <div class="form-group">
+                <label for="itemId">Catalog</label>
+                <select class="form-control" id="itemId" name="itemId">
+                    @foreach (var item in Model.ItemId)
+                    {
+                        <option value="@item.Id">
+                            @item.ProductName | $@item.Price | Colour: @item.Color | Rating @item.Rating
+                        </option>
+                    }
 
-</form>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="quantity">Amount</label>
+                <input type="number" class="form-group" id="quantity" name="quantity"/>
+            </div>
+
+            <div class="form-group">
+                <label for="distributorId">Shipping Method</label>
+                <select class="form-control" id="distributorId" name="distributorId">
+                    @foreach (var ship in Model.DistributorId)
+                    {
+                        <option value="@ship.Id">
+                            @ship.ShippingMethod | $@ship.ShipPrice | @ship.TimeToShip Days
+                        </option>
+
+                    }
+
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg">Submit Order</button>
+        </form>
+    </div>
