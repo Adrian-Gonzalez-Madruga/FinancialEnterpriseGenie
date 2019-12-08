@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FinancialEnterpriseGenie.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FinancialEnterpriseGenie.Controllers
 {
@@ -23,7 +24,8 @@ namespace FinancialEnterpriseGenie.Controllers
         [HttpPost]
         public IActionResult LoginForm(Credentials _credentials)
         {
-            var user = _context.Users.FirstOrDefault(u=> (u.Credentials.Email == _credentials.Email));
+            var user = _context.Users.Include(u => u.Credentials).FirstOrDefault(u=> (u.Credentials.Email == _credentials.Email));
+
             if (user == null)
             {
                 ModelState.AddModelError("Email", "email not registered as account");

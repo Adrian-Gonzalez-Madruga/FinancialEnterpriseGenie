@@ -30,5 +30,15 @@ namespace FinancialEnterpriseGenie.Models
         public string CreditCardNumber { get; set; }
         [Required(ErrorMessage = "Please enter your date of birth")]
         public DateTime DateOfBirth { get; set; }
+
+        public bool EmailsMatch()
+        {
+            return (Email == ConfirmEmail);
+        }
+
+        public bool PasswordsMatch()
+        {
+            return (Password == ConfirmPassword);
+        }
     }
 }
