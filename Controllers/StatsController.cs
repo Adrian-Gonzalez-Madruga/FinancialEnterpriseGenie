@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using FinancialEnterpriseGenie.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace FinancialEnterpriseGenie.Controllers
 {
@@ -12,13 +14,31 @@ namespace FinancialEnterpriseGenie.Controllers
     {
         private GenieDatabase _context;
         private Random random = new Random((int)DateTime.Now.Ticks);
+        private static User user = new User();
         public StatsController(GenieDatabase context)
         {
             _context = context;
         }
         public IActionResult Index(User _user)
         {
-            return View(_user);
+            user = _user;
+
+            List<DataPoint> dataPointsa = new List<DataPoint>();
+            dataPointsa.Add(new DataPoint(1496255400000, 2500));
+            dataPointsa.Add(new DataPoint(1496341800000, 2790));
+            dataPointsa.Add(new DataPoint(1496428200000, 3380));
+            dataPointsa.Add(new DataPoint(1496514600000, 4940));
+            dataPointsa.Add(new DataPoint(1496601000000, 4020));
+            List<DataPoint> dataPointsb = new List<DataPoint>();
+            dataPointsb.Add(new DataPoint(1496255400000, 3500));
+            dataPointsb.Add(new DataPoint(1496341800000, 3790));
+            dataPointsb.Add(new DataPoint(1496428200000, 2380));
+            dataPointsb.Add(new DataPoint(1496514600000, 5940));
+            dataPointsb.Add(new DataPoint(1496601000000, 1020));
+            string[] test = {JsonConvert.SerializeObject(dataPointsa), JsonConvert.SerializeObject(dataPointsb)}; 
+            ViewBag.DataPoints = test;
+            ;
+            return View();
         }
 
         public async Task<IActionResult> Create()

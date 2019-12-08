@@ -1,19 +1,50 @@
-﻿@model User
-@{
-    Layout = "_Layout";
-}
-
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>index</title>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script>
+        window.onload = function () {
+
+            var chart = new CanvasJS.Chart("chartContainer", {
+                animationEnabled: true,
+                title: {
+                    text: "Ice Cream Sales Over a Month"
+                },
+                axisX: {
+                    valueFormatString: "DD MMM"   
+                },
+                axisY: {
+                    title: "Sales (in USD)",
+                    prefix: "$",
+                    includeZero: false
+                },
+                data: [{
+                    type: "spline",
+                    xValueType: "dateTime",
+                    xValueFormatString: "DD MMM",
+                    yValueFormatString: "$#,###",
+                    name: "A",
+                    showInLegend: true,
+                    dataPoints: @Html.Raw(ViewBag.DataPoints[0])
+                },{
+                    type: "spline",
+                    xValueType: "dateTime",
+                    xValueFormatString: "DD MMM",
+                    yValueFormatString: "$#,###",
+                    name: "B",
+                    showInLegend: true,
+                    dataPoints: @Html.Raw(ViewBag.DataPoints[1])
+                }]
+            });
+            chart.render();
+
+        }
+    </script>
 </head>
 <body>
-    <h2>
-        Stats: @Model.FirstName @Model.LastName
-    </h2>
+    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
 </body>
 </html>
