@@ -76,7 +76,8 @@ namespace FinancialEnterpriseGenie.Controllers
             receipt.Date = DateTime.Now;
             receipt.Quantity = quantity;
             receipt.Total = Math.Round((receipt.Tax + (item.Price * quantity) + distributor.ShipPrice), 2);
-            
+            //TODO: Get User Id from Rick
+            //receipt.User.Id = ;
 
 
             _context.Receipts.Add(receipt);
