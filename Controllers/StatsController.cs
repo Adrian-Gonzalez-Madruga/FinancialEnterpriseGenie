@@ -39,9 +39,9 @@ namespace FinancialEnterpriseGenie.Controllers
         {
             Graph graph = new Graph() { name = "Item Sales By Week", shared = "true", xTitle = "Date", xValueFormatString = "DD MMM", yTitle = "Number of Units Sold" };
             List<Item> items = _context.Items.ToList();
-            for (int i = 0; i < items.Count; i++)
+            for (int i = 0; i < 4; i++)
             {
-                List<Sale> sales = _context.Sales.Where(s => s.Item == items[i]).ToList();
+                List<Sale> sales = _context.Sales.Where(s => s.Item == items[i]).OrderBy(s => s.Date).ToList();
                 List<DataPoint> dataPoints = new List<DataPoint>();
                 for (int j = 0; j < sales.Count; j++)
                 {
@@ -53,17 +53,17 @@ namespace FinancialEnterpriseGenie.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
             double[] startItemSale = {15, 10, 3, 30, 12, 14, 10, 8, 17, 27};
             double[] weekFluctuation = {0.60, 0.70, 0.70, 0.85, 0.95, 1.25, 1.4, 1, 1.05, 1, 1.25, 1.2, 1.1, 0.9, 0.9, 0.8, 0.68, 0.95, 1.05, 1.05, 1.1, 1.1, 1, 1, 1, 1, 1.15, 1.1, 1.15, 1.2, 1.2, 1.25, 1.3, 1.3, 1.25, 1.3, 1.45, 1.2, 1, 1, 0.8, 1, 0.8, 0.65, 0.55, 0.5, 2, 2, 1, 1.25, 1.7, 1.9};
             int numOfYears = 5;
             int barSize = 14;
             List<int> sales = new List<int>();
-            List<Item> items = await _context.Items.ToListAsync();
+            List<Item> items = _context.Items.ToList();
             double rating;
             List<int> entryCounter = new List<int>();
-            for (int i = 0; i < startItemSale.Length; i++)
+            for (int i = 0; i < items.Count; i++)
             {
                 DateTime date = new DateTime(2020, 01, 01);
                 Item item = items[i];
@@ -83,8 +83,8 @@ namespace FinancialEnterpriseGenie.Controllers
                     counter++;
                 }
                 entryCounter.Append(counter);
-            }
-            await _context.SaveChangesAsync();
+            } 
+            _context.SaveChanges();
             String counterString = "";
             for (int i = 0; i < entryCounter.Count; i++)
             {
