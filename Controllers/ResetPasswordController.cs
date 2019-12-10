@@ -9,7 +9,6 @@ namespace FinancialEnterpriseGenie.Controllers
 {
     public class ResetPasswordController : Controller
     {
-        private static Credentials _credentials;
         private GenieDatabase _context;
 
         public ResetPasswordController(GenieDatabase context)
@@ -33,41 +32,72 @@ namespace FinancialEnterpriseGenie.Controllers
                 return View();
             }
 
-            _credentials = credentials;
-            return RedirectToAction("SecurityQuestionForm");
+            return RedirectToAction("SecurityQuestionForm", new { _id = credentials.Id });
         }
 
-        public IActionResult SecurityQuestionForm()
+        public IActionResult SecurityQuestionForm(int _id)
         {
-            return View((object)_credentials.SecurityQuestion);
-        }
-
-        [HttpPost]
-        public IActionResult SecurityQuestionForm(string _answer)
-        {
-            if (_answer != _credentials.SecurityAnswer)
+            var credentials = _context.Credentials.Find(_id);
+            if (credentials == null)
             {
-                ViewBag.ErrorMessage = "Answers did not match";
-                return View((object)_credentials.SecurityQuestion);
+                return Content("something went wrong");
             }
-            return RedirectToAction("ResetPasswordForm");
-        }
 
-        public IActionResult ResetPasswordForm()
-        {
+            ViewBag.Id = _id;
+            ViewBag.SecurityQuestion = credentials.SecurityQuestion;
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> ResetPasswordForm(string _newPassword, string _confirmPassword)
+        public IActionResult SecurityQuestionForm(string _answer, int _id)
         {
+            var credentials = _context.Credentials.Find(_id);
+            if (credentials == null)
+            {
+                return Content("something went wrong");
+            }
+            if (_answer == null || _answer.Trim() == "")
+            {
+                ViewBag.ErrorMessage = "Enter an answer";
+            }
+            else if (_answer != credentials.SecurityAnswer)
+            {
+                ViewBag.ErrorMessage = "Answers did not match";
+            }
+
+            if (ViewBag.ErrorMessage != null)
+            {
+                ViewBag.Id = _id;
+                ViewBag.SecurityQuestion = credentials.SecurityQuestion;
+                return View();
+            }
+            return RedirectToAction("ResetPasswordForm", new { id = _id});
+        }
+
+        public IActionResult ResetPasswordForm(int id)
+        {
+            ViewBag.Id = id;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPasswordForm(string _newPassword, string _confirmPassword, int _id)
+        {
+            if (_newPassword == null || _newPassword.Trim() == "")
+            {
+
+                ViewBag.ErrorMessage = "Password is empty";
+            }
             if (_newPassword != _confirmPassword)
             {
                 ViewBag.ErrorMessage = "Passwords do not match";
+            }
+            if (ViewBag.ErrorMessage != null)
+            {
+                ViewBag.Id = _id;
                 return View();
             }
-
-            var credentials = _context.Credentials.Find(_credentials.Id);
+            var credentials = _context.Credentials.Find(_id);
             if (credentials == null)
             {
                 return NotFound();

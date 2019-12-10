@@ -1,4 +1,4 @@
-﻿@model string
+﻿
 @{
     ViewData["Title"] = "SecurityQuestionForm";
     Layout = "_formLayout";
@@ -6,7 +6,8 @@
 
 <div class="display-4 text-center">Reset Password</div>
 <form asp-action="SecurityQuestionForm" method="post" class="form-block border bg-grey">
-    <div class="mb-3 text-center lead">@Model</div>
+    <input name="_id" type="hidden" value="@ViewBag.Id" />
+    <div class="mb-3 text-center lead">@ViewBag.SecurityQuestion</div>
     <div class="form-group">
         <div class="input-group">
             <div class="input-group-prepend">
