@@ -6,22 +6,24 @@
 }
 <style>
     .test {
-        border-color: black;
 
         padding-bottom: 2vh
+    }
+    h1 {
+        padding-top: 1vh
     }
     h2 {
         padding-bottom: 2vh
     }
 </style>
 <div style="height: 5vh"></div>
-<div class="text-center container">
-    <h1 class="test">Confirm Order</h1>
-    <div class="row form-block border bg-light">
-        <div class="col">
-            <h2>Products</h2>
+<div class="text-center container border bg-grey">
+    <h1 class="test">Order Confirmation</h1>
+    <div class="row form-block">
+        <div class="col border bg-light">
+            <h2>Product</h2>
             <p>
-                @Model.Item.ProductName | $@Model.Item.Price each | @Model.Quantity
+                @Model.Item.ProductName | @Model.Item.Price.ToString("C") each | @Model.Quantity
                 @if (Model.Quantity > 1)
                 {
                     <span>units</span>
@@ -43,21 +45,21 @@
                 }
             </label>
         </div>
-        <div class="col">
+        <div class="col border bg-light">
             <h2>Delivery Estimate</h2>
             <div>
                 <label>
                     Today's Date: @Model.Date
                 </label>
-                <p>Estimated Delivery Date: @Model.ReceiveDate</p>
+                <p>Estimated Delivery: @Model.ReceiveDate</p>
             </div>
         </div>
-        <div class="col">
+        <div class="col border bg-light">
             <h2>Order Price</h2>
             <div>
-                <label>Shipping Price: $@Math.Round(Model.Distributor.ShipPrice, 2)</label>
-                <p>Tax: $@Model.Tax</p>
-                <p>Total: $@Model.Total</p>
+                <label>Shipping Price: @Model.Distributor.ShipPrice.ToString("C")</label>
+                <p>Tax: @Model.Tax.ToString("C")</p>
+                <p>Total: @Model.Total.ToString("C")</p>
             </div>
         </div>
     </div>

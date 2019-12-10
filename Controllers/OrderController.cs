@@ -47,23 +47,10 @@ namespace FinancialEnterpriseGenie.Controllers
         [HttpPost]
         public IActionResult Confirmation(int itemId, int distributorId, int quantity)
         {
-            /*
-           // Request.Form.TryGetValue(distributor, name);
-
-            var receipt = new Receipt();
-
-            receipt.Distributor = distributor;
-            receipt.Item = item;
-            receipt.Tax = 0.13 * (item.Price + distributor.ShipPrice);
-            receipt.ReceiveDate = DateTime.Now;
-            receipt.Date = DateTime.Now;
-            receipt.User = null;
-            receipt.Quantity = quantity;
-            receipt.Total = receipt.Tax + item.Price + distributor.ShipPrice;
-            */
-            //.Distributor = receipt.Distributor;
-
-            //receipt = receipt;
+            if (quantity <= 0)
+            {
+                quantity = 1;
+            }
 
             var distributor = _context.Distributors.Find(distributorId);
             var item = _context.Items.Find(itemId);

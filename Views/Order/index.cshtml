@@ -4,42 +4,44 @@
 }
 <style>
     .form-group {
-        padding-bottom: 50px
+        padding-bottom: 2vh
+    }
+    h1 {
+        padding-top: 1vh
     }
 </style>
-    <div style="text-align: center;" class="container">
+<div style="text-align: center;" class="container border bg-grey">
         <div class="form-group">
             <h1>Order Form</h1>
         </div>
 
         <form asp-action="Confirmation" method="post">
-
             <div class="form-group">
                 <label for="itemId">Catalog</label>
                 <select class="form-control" id="itemId" name="itemId">
                     @foreach (var item in Model.ItemId)
                     {
                         <option value="@item.Id">
-                            @item.ProductName | $@item.Price | Colour: @item.Color | Rating @item.Rating
+                            @item.ProductName | @item.Price.ToString("C") | Colour: @item.Color | Rating @item.Rating
                         </option>
                     }
 
                 </select>
             </div>
             <div class="form-group">
-                <label for="quantity">Amount<br/></label> 
-                <input class="form-control" type="number" id="quantity" name="quantity"/>
+                <label for="quantity">Amount<br /></label>
+                <input class="form-control" type="number" id="quantity" name="quantity" placeholder="Enter an Amount"/>
             </div>
-
             <div class="form-group">
                 <label for="distributorId">Shipping Method</label>
                 <select class="form-control" id="distributorId" name="distributorId">
                     @foreach (var ship in Model.DistributorId)
                     {
                         <option value="@ship.Id">
-                            @ship.ShippingMethod | $@ship.ShipPrice | @ship.TimeToShip
-                            @if(ship.TimeToShip > 1){
-                            <span>days</span>
+                            @ship.ShippingMethod | @ship.ShipPrice.ToString("C") | @ship.TimeToShip
+                            @if (ship.TimeToShip > 1)
+                            {
+                                <span>days</span>
                             }
                             else
                             {

@@ -1,18 +1,14 @@
-﻿
+﻿@model IEnumerable<FinancialEnterpriseGenie.Models.Receipt>
 @{
+    ViewData["Title"] = "All Receipts";
     Layout = "_Layout";
 }
 
-<!DOCTYPE html>
+<h2>
+    Receipts
+</h2>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>index</title>
-</head>
-<body>
-    <h2>
-        Reciepts
-    </h2>
-</body>
-</html>
+@foreach (var receipt in Model)
+{
+    <p>Order: @receipt.Id</p>
+}
