@@ -17,9 +17,9 @@ namespace FinancialEnterpriseGenie.Models
         }
 
         [DataMember(Name = "x")]
-        public Nullable<double> x = null;
+        public double? x = null;
 
         [DataMember(Name = "y")]
-        public Nullable<double> Y = null;
+        public double? Y = null;
     }
 }

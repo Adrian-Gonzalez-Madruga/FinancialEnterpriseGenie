@@ -9,35 +9,39 @@
         window.onload = function () {
 
             var chart = new CanvasJS.Chart("chartContainer", {
+                @{ Graph graph = ViewBag.Graph;}
                 animationEnabled: true,
                 title: {
-                    text: "Ice Cream Sales Over a Month"
+                    text:  "@Html.Raw(graph.name)"
+                },
+                toolTip: {
+                    shared: @Html.Raw(graph.shared)
                 },
                 axisX: {
-                    valueFormatString: "DD MMM"
+                    @if (graph.xValueFormatString != null) {<text>xValueType: "@Html.Raw(graph.xValueFormatString)",</text>}
+                    @if (graph.xPrefix != null) {<text>prefix: "@Html.Raw(graph.xPrefix)",</text>}
+                    @if (graph.xTitle != null) {<text>title: "@Html.Raw(graph.xTitle)",</text>}
                 },
                 axisY: {
-                    title: "Sales (in USD)",
-                    prefix: "$",
-                    includeZero: false
+                    @if (graph.yValueFormatString != null) {<text>xValueType: "@Html.Raw(graph.yValueFormatString)",</text>}
+                    @if (graph.yPrefix != null) {<text>prefix: "@Html.Raw(graph.yPrefix)",</text>}
+                    @if (graph.yTitle != null) {<text>title: "@Html.Raw(graph.yTitle)",</text>}
+                    includeZero: true
                 },
-                data: [{
-                    type: "spline",
-                    xValueType: "dateTime",
-                    xValueFormatString: "DD MMM",
-                    yValueFormatString: "$#,###",
-                    name: "A",
-                    showInLegend: true,
-                    dataPoints: @Html.Raw(ViewBag.DataPoints[0])
-                },{
-                    type: "spline",
-                    xValueType: "dateTime",
-                    xValueFormatString: "DD MMM",
-                    yValueFormatString: "$#,###",
-                    name: "B",
-                    showInLegend: true,
-                    dataPoints: @Html.Raw(ViewBag.DataPoints[1])
-                }]
+                data: [
+                    @{ int count = graph.elements.Count;}
+                    @for (int i = 0; i < count; i++) { <text>
+                    {
+                        @{Element element = graph.elements[i];}
+                        type: "@Html.Raw(element.type)",
+                        @if (element.xValueType != null) {<text>xValueType: "@Html.Raw(element.xValueType)",</text>}
+                        @if (element.yValueType != null) {<text>yValueType: "@Html.Raw(element.yValueType)",</text>}
+                        xValueFormatString: "@Html.Raw(element.xValueFormatString)",
+                        yValueFormatString: "@Html.Raw(element.yValueFormatString)",
+                        name: "@Html.Raw(element.name)",
+                        showInLegend: true,
+                        dataPoints: @Html.Raw(element.dataToJson())
+                    }</text> @if (i < (count-1)) {<text>,</text>} }]
             });
             chart.render();
 
@@ -89,7 +93,7 @@
         </div>
     </div>
     <div class="col-8 border rounded">
-        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+        <div id="chartContainer" style="height: 100%; width: 100%;"></div>
     </div>
 </div>
 

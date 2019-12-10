@@ -14,30 +14,42 @@ namespace FinancialEnterpriseGenie.Controllers
     {
         private GenieDatabase _context;
         private Random random = new Random((int)DateTime.Now.Ticks);
-        private static User user = new User();
         public StatsController(GenieDatabase context)
         {
             _context = context;
         }
-        public IActionResult Index(User _user)
-        {
-            user = _user;
 
-            List<DataPoint> dataPointsa = new List<DataPoint>();
-            dataPointsa.Add(new DataPoint(1496255400000, 2500));
-            dataPointsa.Add(new DataPoint(1496341800000, 2790));
-            dataPointsa.Add(new DataPoint(1496428200000, 3380));
-            dataPointsa.Add(new DataPoint(1496514600000, 4940));
-            dataPointsa.Add(new DataPoint(1496601000000, 4020));
-            List<DataPoint> dataPointsb = new List<DataPoint>();
-            dataPointsb.Add(new DataPoint(1496255400000, 3500));
-            dataPointsb.Add(new DataPoint(1496341800000, 3790));
-            dataPointsb.Add(new DataPoint(1496428200000, 2380));
-            dataPointsb.Add(new DataPoint(1496514600000, 5940));
-            dataPointsb.Add(new DataPoint(1496601000000, 1020));
-            string[] test = {JsonConvert.SerializeObject(dataPointsa), JsonConvert.SerializeObject(dataPointsb)}; 
-            ViewBag.DataPoints = test;
-            ;
+        public IActionResult DefaultGraph()
+        {
+            /*Graph graph = new Graph() {name = "Item Sales By Week", shared = "true", xTitle = "Date", xValueFormatString = "DD MMM YYYY", yTitle = "Number of Units Sold"};
+            List<Item> items = _context.Items.ToList();
+            for (int i = 0; i < items.Count; i++)
+            {
+                List<Sale> sales = _context.Sales.Where(s => s.Item == items[i]).ToList();
+                List<DataPoint> dataPoints = new List<DataPoint>();
+                for (int j = 0; j < sales.Count; j++)
+                {
+                    dataPoints.Add(new DataPoint(sales[j].Date.Ticks, sales[j].Units));
+                }
+                graph.elements.Add(new Element() {type = "spline", name = items[i].ProductName, dataPoints = dataPoints, xValueType = "dateTime", xValueFormatString = "DD MMM YYYY"});
+            }*/
+            return RedirectToAction("Index", "Stats");
+        }
+        public IActionResult Index()
+        {
+            Graph graph = new Graph() { name = "Item Sales By Week", shared = "true", xTitle = "Date", xValueFormatString = "DD MMM", yTitle = "Number of Units Sold" };
+            List<Item> items = _context.Items.ToList();
+            for (int i = 0; i < items.Count; i++)
+            {
+                List<Sale> sales = _context.Sales.Where(s => s.Item == items[i]).ToList();
+                List<DataPoint> dataPoints = new List<DataPoint>();
+                for (int j = 0; j < sales.Count; j++)
+                {
+                    dataPoints.Add(new DataPoint(sales[j].Date.ToOADate(), sales[j].Units));
+                }
+                graph.elements.Add(new Element() { type = "spline", name = items[i].ProductName, dataPoints = dataPoints, xValueType = "dateTime", xValueFormatString = "DD MMM" });
+            }
+            ViewBag.Graph = graph;
             return View();
         }
 

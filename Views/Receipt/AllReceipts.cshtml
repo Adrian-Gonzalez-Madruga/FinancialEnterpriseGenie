@@ -1,0 +1,18 @@
+﻿@model IEnumerable<FinancialEnterpriseGenie.Models.Receipt>
+@{
+    ViewData["Title"] = "All Receipts";
+    Layout = "_Layout";
+}
+
+<h2>
+    Receipts
+</h2>
+
+<div style="text-align: left;" class="container border bg-grey">
+    
+    @foreach (var receipt in Model)
+    {
+        <p>Order ID: @receipt.Id | Product: @receipt.Item | Amount: @receipt.Quantity | Price: @receipt.Total.ToString("C") 
+            | Date Purchased: @receipt.Date| Delivered: @receipt.ReceiveDate </p>
+    }
+</div>
