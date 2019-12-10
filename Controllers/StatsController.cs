@@ -39,7 +39,7 @@ namespace FinancialEnterpriseGenie.Controllers
         {
             Graph graph = new Graph() { name = "Item Sales By Week", shared = "true", xTitle = "Date", xValueFormatString = "DD MMM", yTitle = "Number of Units Sold" };
             List<Item> items = _context.Items.ToList();
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < items.Count; i++)
             {
                 List<Sale> sales = _context.Sales.Where(s => s.Item == items[i]).OrderBy(s => s.Date).ToList();
                 List<DataPoint> dataPoints = new List<DataPoint>();

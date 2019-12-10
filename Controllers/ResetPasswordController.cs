@@ -105,7 +105,7 @@ namespace FinancialEnterpriseGenie.Controllers
             credentials.Password = _newPassword;
 
             await _context.SaveChangesAsync();
-            return Content("Success");
+            return RedirectToAction("LoginForm", "Signin");
         }
     }
 }
