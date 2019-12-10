@@ -9,7 +9,7 @@
 </h2>
 
 <div style="text-align: left;" class="container border bg-grey">
-
+    
     @foreach (var receipt in Model)
     {
         <p>Order ID: @receipt.Id | Product: @receipt.Item | Amount: @receipt.Quantity | Price: @receipt.Total.ToString("C") 
