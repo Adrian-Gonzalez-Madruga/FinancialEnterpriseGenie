@@ -39,7 +39,7 @@ namespace FinancialEnterpriseGenie.Controllers
             {
                 return View();
             }
-            return RedirectToAction("Index", "Stats", user);
+            return RedirectToAction("DefaultGraph", "Stats");
         }
 
         public IActionResult ForgotPasswordForm()
