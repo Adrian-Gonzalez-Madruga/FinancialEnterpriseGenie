@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewData["Title"] = "CheckEmailForm";
+    Layout = "_formLayout";
+}
+
+<form asp-action="CheckEmailForm" method="post" class="form-block border bg-grey">
+    <h1 class="display-4 text-center">Reset Password</h1>
+    <div class="form-group">
+        <label for="_email">Email</label>
+        <input class="form-control" type="email" name="_email" placeholder="Email Address" required/>
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="text-danger small">@ViewData.ModelState["Email"].Errors.First().ErrorMessage</div>
+        }
+    </div>
+    <div class="text-center">
+        <button class="btn btn-info btn-block" type="submit">Check Email</button>
+    </div>
+</form>

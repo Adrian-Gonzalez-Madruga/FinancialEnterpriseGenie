@@ -1,0 +1,26 @@
+﻿@model string
+@{
+    ViewData["Title"] = "SecurityQuestionForm";
+    Layout = "_formLayout";
+}
+
+<form asp-action="SecurityQuestionForm" method="post" class="form-block border bg-grey">
+
+    <div class="mb-3 text-center lead">@Model</div>
+
+    <div class="form-group">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Answer</span>
+            </div>
+            <input class="form-control" name="_answer" placeholder="Your Answer" />
+        </div>
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="text-danger small">@ViewBag.ErrorMessage</div>
+        }
+    </div>
+    <div class="text-center">
+        <button class="btn btn-info btn-block" type="submit">Submit Answer</button>
+    </div>
+</form>
