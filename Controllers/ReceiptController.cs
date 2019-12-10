@@ -17,16 +17,21 @@ namespace FinancialEnterpriseGenie.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
+        {
+
+            return View();
+        }
+        public async Task<IActionResult> AllReceipts()
         {
 
             var receipt = await _context
                 .Receipts
+                //.Include(u => u.User)
                 .ToListAsync();
 
             return View(receipt);
         }
-
 
     }
 }
