@@ -4,14 +4,14 @@
     Layout = "_formLayout";
 }
 
+<div class="display-4 text-center">Reset Password</div>
 <form asp-action="CheckEmailForm" method="post" class="form-block border bg-grey">
-    <h1 class="display-4 text-center">Reset Password</h1>
     <div class="form-group">
         <label for="_email">Email</label>
-        <input class="form-control" type="email" name="_email" placeholder="Email Address" required/>
-        @if (!ViewData.ModelState.IsValid)
+        <input class="form-control" type="email" name="_email" placeholder="Email Address" required />
+        @if (ViewBag.ErrorMessage != null)
         {
-            <div class="text-danger small">@ViewData.ModelState["Email"].Errors.First().ErrorMessage</div>
+            <div class="text-danger small">@ViewBag.ErrorMessage</div>
         }
     </div>
     <div class="text-center">

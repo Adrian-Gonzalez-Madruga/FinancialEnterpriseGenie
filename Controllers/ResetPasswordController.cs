@@ -29,7 +29,7 @@ namespace FinancialEnterpriseGenie.Controllers
 
             if (credentials == null)
             {
-                ModelState.AddModelError("Email", "This email is not registered with us.");
+                ViewBag.ErrorMessage = "This email is not registered with us.";
                 return View();
             }
 
@@ -50,7 +50,32 @@ namespace FinancialEnterpriseGenie.Controllers
                 ViewBag.ErrorMessage = "Answers did not match";
                 return View((object)_credentials.SecurityQuestion);
             }
+            return RedirectToAction("ResetPasswordForm");
+        }
+
+        public IActionResult ResetPasswordForm()
+        {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPasswordForm(string _newPassword, string _confirmPassword)
+        {
+            if (_newPassword != _confirmPassword)
+            {
+                ViewBag.ErrorMessage = "Passwords do not match";
+                return View();
+            }
+
+            var credentials = _context.Credentials.Find(_credentials.Id);
+            if (credentials == null)
+            {
+                return NotFound();
+            }
+            credentials.Password = _newPassword;
+
+            await _context.SaveChangesAsync();
+            return Content("Success");
         }
     }
 }
