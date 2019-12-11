@@ -49,5 +49,10 @@ namespace FinancialEnterpriseGenie.Controllers
             CookieUtil.ClearAllCookies(Request, Response);
             return RedirectToAction("LoginForm");
         }
+
+        public IActionResult NotLoggedIn()
+        {
+            return View();
+        }
     }
 }

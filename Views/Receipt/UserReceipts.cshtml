@@ -1,0 +1,25 @@
+﻿@model  IEnumerable<Receipt>
+@{
+    ViewData["Title"] = "User Receipts";
+    Layout = "_formLayout";
+}
+
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th class="w-25">Order ID</th>
+            <th>Product</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var receipt in Model)
+        {
+            <tr>
+                <td>@receipt.Id</td>
+                <td>@receipt.Item.ProductName</td>
+            </tr>
+        }
+
+    </tbody>
+</table>

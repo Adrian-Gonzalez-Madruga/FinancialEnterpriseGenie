@@ -20,7 +20,7 @@ namespace FinancialEnterpriseGenie.Controllers
         public IActionResult UserReceipts()
         {
 
-            return View();
+            return View(_context.Receipts);
         }
         public async Task<IActionResult> AllReceipts()
         {
