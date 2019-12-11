@@ -17,13 +17,6 @@ namespace FinancialEnterpriseGenie.Controllers
         {
             _context = context;
         }
-        /*  public IActionResult Index()
-          {
-
-
-              return View();
-          }*/
-
         public async Task<IActionResult> Index()
         {
             var distributor = await _context

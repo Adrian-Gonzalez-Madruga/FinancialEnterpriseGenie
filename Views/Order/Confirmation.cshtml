@@ -49,9 +49,9 @@
             <h2>Delivery Estimate</h2>
             <div>
                 <label>
-                    Today's Date: @Model.Date
+                    Today's Date: @Model.Date.ToString("yy-MMM-dd ddd")
                 </label>
-                <p>Estimated Delivery: @Model.ReceiveDate</p>
+                <p>Estimated Delivery: @Model.ReceiveDate.ToString("yy-MMM-dd ddd")</p>
             </div>
         </div>
         <div class="col border bg-light">
