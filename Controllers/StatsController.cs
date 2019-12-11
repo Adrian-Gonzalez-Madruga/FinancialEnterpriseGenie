@@ -87,5 +87,12 @@ namespace FinancialEnterpriseGenie.Controllers
             }
             return Content("ya ho" + counterString);
         }
+
+        public IActionResult Delete()
+        {
+            _context.Sales.RemoveRange(_context.Sales.ToList());
+            _context.SaveChangesAsync();
+            return Content("Deleted Sales");
+        }
     }
 }

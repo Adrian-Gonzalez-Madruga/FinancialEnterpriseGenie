@@ -17,7 +17,7 @@ namespace FinancialEnterpriseGenie.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public IActionResult UserReceipts()
         {
 
             return View();

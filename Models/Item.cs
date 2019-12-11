@@ -10,6 +10,7 @@ namespace FinancialEnterpriseGenie.Models
         public int Id { get; set; }
         public String ProductName { get; set; }
         public double Price { get; set; }
+        public double MRP { get; set; }
         public double Rating { get; set; }
         public String Color { get; set; }
     }
