@@ -85,7 +85,6 @@ namespace FinancialEnterpriseGenie.Controllers
         {
             if (_newPassword == null || _newPassword.Trim() == "")
             {
-
                 ViewBag.ErrorMessage = "Password is empty";
             }
             if (_newPassword != _confirmPassword)
