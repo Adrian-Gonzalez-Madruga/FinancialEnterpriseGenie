@@ -27,6 +27,7 @@ namespace FinancialEnterpriseGenie.Controllers
             var receipt = await _context
                 .Receipts
                 .Include(u => u.User)
+                .Include(i => i.Item)
                 .ToListAsync();
 
             return View(receipt);

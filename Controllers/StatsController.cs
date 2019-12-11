@@ -20,9 +20,14 @@ namespace FinancialEnterpriseGenie.Controllers
             
             return RedirectToAction("Index", "Stats"); //, new RouteValueDictionary(graph)
         }
+        [HttpPost]
+        public IActionResult Index(Graph graph)
+        {
+            return View();
+        }
         public IActionResult Index()
         {
-            Graph graph = new Graph() { name = "Item Sales By Week", shared = "true", xTitle = "Date", xValueFormatString = "DD MMM YYYY", yTitle = "Number of Units Sold" };
+            Graph graph = new Graph() { };
             List<Item> items = _context.Items.ToList();
             DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             for (int i = 0; i < items.Count; i++)

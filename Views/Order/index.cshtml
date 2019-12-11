@@ -22,7 +22,7 @@
                     @foreach (var item in Model.ItemId)
                     {
                         <option value="@item.Id">
-                            @item.ProductName | @item.Price.ToString("C") | Colour: @item.Color | Rating @item.Rating
+                            @item.ProductName | @item.MRP.ToString("C") | Colour: @item.Color | Rating @item.Rating
                         </option>
                     }
 

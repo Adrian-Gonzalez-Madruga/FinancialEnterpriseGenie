@@ -41,7 +41,7 @@ namespace FinancialEnterpriseGenie.Controllers
             }
 
             CookieUtil.AddCookie(Response, CookieUtil.USER_ID_KEY, user.Id.ToString());
-            return RedirectToAction("DefaultGraph", "Stats");
+            return RedirectToAction("Index", "Stats");
         }
 
         public IActionResult Logout()

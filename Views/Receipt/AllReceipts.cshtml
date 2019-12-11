@@ -4,16 +4,18 @@
     Layout = "_Layout";
 }
 
-<h2>
-    Receipts
-</h2>
 
-<div style="text-align: left;" class="container form-block border bg-grey">
-    
+<h2 style="text-align: center">
+    All Orders
+</h2>
+<div style="text-align: left;" class="form-block border bg-grey">
+
     @foreach (var receipt in Model)
     {
-        <p>Order ID: @receipt.Id | Product: @receipt.Item | Amount: @receipt.Quantity | Price: @receipt.Total.ToString("C") 
-            | Date Purchased: @receipt.Date.ToString("yy-MMM-dd ddd") | Delivered: @receipt.ReceiveDate.ToString("yy-MMM-dd ddd") | @receipt.User.FirstName @receipt.User.LastName | User ID: @receipt.User.Id</p>
+        <p>
+            Order ID: @receipt.Id | Product: @receipt.Item.ProductName | Amount: @receipt.Quantity | Price: @receipt.Total.ToString("C")
+            | Date Purchased: @receipt.Date.ToString("yy-MMM-dd ddd") | Delivered: @receipt.ReceiveDate.ToString("yy-MMM-dd ddd") | @receipt.User.FirstName @receipt.User.LastName | User ID: @receipt.User.Id
+        </p>
 
     }
 </div>
