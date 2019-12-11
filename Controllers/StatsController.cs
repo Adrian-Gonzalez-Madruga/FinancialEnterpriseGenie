@@ -90,7 +90,9 @@ namespace FinancialEnterpriseGenie.Controllers
 
         public IActionResult Delete()
         {
-            return Content("Deleted");
+            _context.Sales.RemoveRange(_context.Sales.ToList());
+            _context.SaveChangesAsync();
+            return Content("Deleted Sales");
         }
     }
 }
