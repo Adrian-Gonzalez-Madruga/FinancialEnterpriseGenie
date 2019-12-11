@@ -54,6 +54,11 @@ namespace FinancialEnterpriseGenie.Controllers
 
             var distributor = _context.Distributors.Find(distributorId);
             var item = _context.Items.Find(itemId);
+            var user = _context.Users.Find(Convert.ToInt32(CookieUtil.GetCookie(Request, CookieUtil.USER_ID_KEY)));
+            if (user == null)
+            {
+                return NotFound();
+            }
 
             var receipt = new Receipt();
             receipt.Distributor = distributor;
@@ -63,9 +68,7 @@ namespace FinancialEnterpriseGenie.Controllers
             receipt.Date = DateTime.Now;
             receipt.Quantity = quantity;
             receipt.Total = Math.Round((receipt.Tax + (item.Price * quantity) + distributor.ShipPrice), 2);
-            //TODO: Get User Id from Rick
-            //receipt.User.Id = ;
-
+            receipt.User = user;
 
             _context.Receipts.Add(receipt);
 

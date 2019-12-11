@@ -39,8 +39,15 @@ namespace FinancialEnterpriseGenie.Controllers
             {
                 return View();
             }
+
+            CookieUtil.AddCookie(Response, CookieUtil.USER_ID_KEY, user.Id.ToString());
             return RedirectToAction("DefaultGraph", "Stats");
         }
 
+        public IActionResult Logout()
+        {
+            CookieUtil.ClearAllCookies(Request, Response);
+            return RedirectToAction("LoginForm");
+        }
     }
 }

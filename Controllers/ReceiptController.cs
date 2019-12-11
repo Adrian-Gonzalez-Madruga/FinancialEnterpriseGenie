@@ -22,12 +22,11 @@ namespace FinancialEnterpriseGenie.Controllers
 
             return View();
         }
-        public async Task<IActionResult> AllReceipts(int id)
+        public async Task<IActionResult> AllReceipts()
         {
-            //TODO: User needs a receipt id
             var receipt = await _context
                 .Receipts
-                //.Include(u => u.User)
+                .Include(u => u.User)
                 .ToListAsync();
 
             return View(receipt);
