@@ -36,14 +36,26 @@
                 </li>
             </ul>
 
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" asp-controller="Signin" asp-action="LoginForm">Sign In</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-controller="Signup" asp-action="SignupForm">Sign Up</a>
-                </li>
-            </ul>
+            @if (CookieUtil.GetCookie(Context.Request, CookieUtil.USER_ID_KEY) != null)
+            {
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Logout" asp-action="SignupForm">Logout</a>
+                    </li>
+                </ul>
+            }
+            else
+            {
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Signin" asp-action="LoginForm">Sign In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Signup" asp-action="SignupForm">Sign Up</a>
+                    </li>
+                </ul>
+            }
+
         </div>
     </nav>
     <div>

@@ -18,7 +18,7 @@ namespace FinancialEnterpriseGenie.Models
             }
         }
 
-        public static void SetCookie(HttpResponse response, string key, string val)
+        public static void AddCookie(HttpResponse response, string key, string val)
         {
             response.Cookies.Append(key, val);
         }
