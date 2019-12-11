@@ -10,37 +10,22 @@ namespace FinancialEnterpriseGenie.Controllers
     {
         private GenieDatabase _context;
         private Random random = new Random((int)DateTime.Now.Ticks);
+        private string[] graphTypeList = {"Sales Over Time"};
         public StatsController(GenieDatabase context)
         {
             _context = context;
         }
 
-        public IActionResult DefaultGraph()
-        {
-            
-            return RedirectToAction("Index", "Stats"); //, new RouteValueDictionary(graph)
-        }
         [HttpPost]
-        public IActionResult Index(Graph graph)
+        public IActionResult Index(int i)
         {
             return View();
         }
         public IActionResult Index()
         {
-            Graph graph = new Graph() { };
-            List<Item> items = _context.Items.ToList();
-            DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-            for (int i = 0; i < items.Count; i++)
-            {
-                List<Sale> sales = _context.Sales.Where(s => s.Item == items[i]).OrderBy(s => s.Date).ToList();
-                List<DataPoint> dataPoints = new List<DataPoint>();
-                for (int j = 0; j < sales.Count; j++)
-                {
-                    dataPoints.Add(new DataPoint((sales[j].Date - epoch).TotalSeconds*1000, sales[j].Units));
-                }
-                graph.elements.Add(new Element() { type = "spline", name = items[i].ProductName, dataPoints = dataPoints, xValueType = "dateTime", xValueFormatString = "DD MMM" });
-            }
-            ViewBag.Graph = graph;
+            ViewBag.Items = _context.Items.ToList();
+            ViewBag.Graph = DefaultGraph();
+            ViewBag.GraphTypeList = graphTypeList;
             return View();
         }
 
@@ -98,6 +83,25 @@ namespace FinancialEnterpriseGenie.Controllers
             _context.Sales.RemoveRange(_context.Sales.ToList());
             _context.SaveChangesAsync();
             return Content("Deleted Sales");
+        }
+
+        public Graph DefaultGraph()
+        {
+            Graph graph = new Graph() { name = "Item Sales By Week", shared = "true", xTitle = "Date", xValueFormatString = "DD MMM YYYY", yTitle = "Number Of Units Sold" };
+            List<Item> items = _context.Items.ToList();
+            DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            for (int i = 0; i < items.Count; i++)
+            {
+                List<Sale> sales = _context.Sales.Where(s => s.Item == items[i]).OrderBy(s => s.Date).ToList();
+                List<DataPoint> dataPoints = new List<DataPoint>();
+                for (int j = 0; j < sales.Count; j++)
+                {
+                    dataPoints.Add(new DataPoint((sales[j].Date - epoch).TotalSeconds * 1000, sales[j].Units));
+                }
+                graph.elements.Add(new Element() { type = "spline", name = items[i].ProductName, dataPoints = dataPoints, xValueType = "dateTime", xValueFormatString = "DD MMM" });
+            }
+
+            return graph;
         }
     }
 }

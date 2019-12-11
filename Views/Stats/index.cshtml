@@ -15,7 +15,7 @@
                     text:  "@Html.Raw(graph.name)"
                 },
                 toolTip: {
-                    shared: @Html.Raw(graph.shared)
+                    shared: "@Html.Raw(graph.shared)"
                 },
                 axisX: {
                     @if (graph.xValueFormatString != null) {<text>xValueType: "@Html.Raw(graph.xValueFormatString)",</text>}
@@ -52,7 +52,7 @@
 <div class="row m-3">
     <div class="col-4">
         <div class="form-block bg-grey">
-            <div class="display-4">Icecream Sales</div>
+            <div class="display-4">@ViewBag.Graph.name</div>
 
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dui eros, placerat nec pretium quis,
             imperdiet at lectus. Etiam lacinia sagittis elit, eget accumsan arcu facilisis vitae. Donec maximus mauris
@@ -60,36 +60,60 @@
             aliquet massa. Sed ut rutrum erat, nec ultrices mauris. Vestibulum at ex sollicitudin, dignissim dolor a, tempus libero.
 
             <div class="vpad-sm"></div>
-            <div class="row">
-                <div class="col">
-                    <div class="form-block bg-info text-light">
-                        <div class="lead text-light">Extra Info</div>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dui eros, placerat nec pretium quis,
-                        imperdiet at lectus. Etiam lacinia sagittis elit, eget accumsan arcu facilisis vitae. Donec maximus mauris
-                        id tincidunt convallis. Maecenas ut sollicitudin nibh, nec porttitor est. Integer vitae sapien suscipit, iaculis arcu sed,
-                        aliquet massa. Sed ut rutrum erat, nec ultrices mauris. Vestibulum at ex sollicitudin, dignissim dolor a, tempus libero.
-
-                        <div class="vpad-sm"></div>
-                        <div class="form-block bg-warning text-dark">
-                            even more additional info
+            <form>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-block bg-info text-light">
+                            <div class="lead text-light">Select Elements To Display</div>
+                            @{ List<Item> items = ViewBag.Items;}
+                            @for (int i = 0; i < items.Count; i++)
+                            {
+                                <input class="form-check-input" type="checkbox" name="items" value="@items[i].Id" id="Item @items[i].Id">
+                                <label class="form-check-label" for="Item @items[i].Id">
+                                    @items[i].ProductName
+                                </label>
+                            }
+                            <div class="vpad-sm"></div>
+                            <button type="submit" class="btn btn-warning form-block text-dark">
+                                Generate Graph
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-block bg-info text-light">
+                            <div class="lead text-light">Select Graph Information</div>
+                            <div class="form-group">
+                                <label for="type">Graph Type</label>
+                                <select id="type" name="type" class="form-control">
+                                    @{ string[] graphTypeList = ViewBag.GraphTypeList;}
+                                    @for (int i = 0; i < graphTypeList.Length; i++)
+                                    {
+                                        @if (i == 0) { <option selected>@graphTypeList[i]</option> } else { <option>@graphTypeList[i]</option>}
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="dataPointSize">DataPoint Size</label>
+                                <input type="number" name="numWeeks" class="form-control" id="dataPointSize" placeholder="Number of Weeks Per DataPoint > 0">
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-block bg-warning text-dark row">
+                            <div class="lead">Time Span</div>
+                            <div class="form-group col">
+                                <label for="DateOfBirth"></label>
+                                <input class="form-control" type="date" for="DateOfBirth" placeholder="Date of Birth" />
+                                <span class="text-danger small" for="DateOfBirth"></span>
+                            </div>
+                            <div class="form-group col">
+                                <label for="DateOfBirth"></label>
+                                <input class="form-control" type="date" for="DateOfBirth" placeholder="Date of Birth" />
+                                <span class="text-danger small" for="DateOfBirth"></span>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="form-block bg-info text-light">
-                        <div class="lead text-light">Extra Info</div>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dui eros, placerat nec pretium quis,
-                        imperdiet at lectus. Etiam lacinia sagittis elit, eget accumsan arcu facilisis vitae. Donec maximus mauris
-                    </div>
-                    <br />
-                    <div class="form-block bg-warning text-dark">
-                        <div class="lead">Extra Info</div>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dui eros, placerat nec pretium quis,
-                        imperdiet at lectus. Etiam lacinia sagittis elit, eget accumsan arcu facilisis vitae. Donec maximus mauris
-                    </div>
-                </div>
-            </div>
-            
+            </form>
         </div>
     </div>
     <div class="col-8 border rounded">
