@@ -5,13 +5,13 @@
 }
 
     <div class="form-block bg-grey text-center">
-        <div class="display-4 text-center mb-3">You are not logged in</div>
+        <div class="lead text-center mb-3">You are not logged in</div>
         <div class="row">
             <div class="col">
-                <button class="btn btn-block btn-info">Login</button>
+                <a class="btn btn-block btn-info" asp-controller="Signin" asp-action="LoginForm">Login</a>
             </div>
             <div class="col">
-                <button class="btn btn-block btn-info">Register</button>
+                <a class="btn btn-block btn-info" asp-controller="Signup" asp-action="SignupForm">Register</a>
             </div>
         </div>
     </div>

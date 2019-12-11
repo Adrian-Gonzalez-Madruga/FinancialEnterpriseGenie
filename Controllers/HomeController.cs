@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FinancialEnterpriseGenie.Models;
 using Microsoft.AspNetCore.Mvc;
+using FinancialEnterpriseGenie.Extensions;
 
 namespace FinancialEnterpriseGenie.Controllers
 {
@@ -11,10 +12,11 @@ namespace FinancialEnterpriseGenie.Controllers
     {
         public IActionResult Index()
         {
-            if (CookieUtil.GetCookie(Request, CookieUtil.USER_ID_KEY) == null)
+            if (CookieUtil.UserLoggedIn(Request))
             {
-                return RedirectToAction("NotLoggedIn", "Signin");
+                return this.NotLoggedIn();
             }
+
             return View();
         }
     }

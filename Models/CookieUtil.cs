@@ -27,5 +27,10 @@ namespace FinancialEnterpriseGenie.Models
         {
             return request.Cookies[key];
         }
+
+        public static bool UserLoggedIn(HttpRequest request)
+        {
+            return request.Cookies[USER_ID_KEY] == null;
+        }
     }
 }
