@@ -18,9 +18,14 @@ namespace FinancialEnterpriseGenie.Models
             }
         }
 
-        public static void SetUserIdCookie(HttpResponse response, string id)
+        public static void SetCookie(HttpResponse response, string key, string val)
         {
-            response.Cookies.Append(USER_ID_KEY, id);
+            response.Cookies.Append(key, val);
+        }
+
+        public static string GetCookie(HttpRequest request, string key)
+        {
+            return request.Cookies[key];
         }
     }
 }
