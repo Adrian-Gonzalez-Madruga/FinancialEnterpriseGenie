@@ -27,7 +27,7 @@ namespace FinancialEnterpriseGenie.Models
         [Required(ErrorMessage = "Please enter your address")]
         public string Address { get; set; }
         [Required(ErrorMessage = "Please enter your credit card number")]
-        [RegularExpression(@"^\d{4}-\d{4}-\d{4}$", ErrorMessage = "please follow the format: XXXX-XXXX-XXXX")]
+        [RegularExpression(@"^\d{4}-\d{4}-\d{4}-\d{4}$", ErrorMessage = "please follow the format: XXXX-XXXX-XXXX")]
         public string CreditCardNumber { get; set; }
         [Required(ErrorMessage = "Please enter your date of birth")]
         public DateTime DateOfBirth { get; set; }

@@ -46,7 +46,8 @@ namespace FinancialEnterpriseGenie.Controllers
 
         public IActionResult Logout()
         {
-            return Content("not implemented");
+            CookieUtil.ClearAllCookies(Request, Response);
+            return RedirectToAction("LoginForm");
         }
     }
 }
