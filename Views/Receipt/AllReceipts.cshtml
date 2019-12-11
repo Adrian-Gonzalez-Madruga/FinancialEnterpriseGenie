@@ -8,11 +8,12 @@
     Receipts
 </h2>
 
-<div style="text-align: left;" class="container border bg-grey">
+<div style="text-align: left;" class="form-block border bg-grey">
     
     @foreach (var receipt in Model)
     {
         <p>Order ID: @receipt.Id | Product: @receipt.Item | Amount: @receipt.Quantity | Price: @receipt.Total.ToString("C") 
-            | Date Purchased: @receipt.Date| Delivered: @receipt.ReceiveDate </p>
+            | Date Purchased: @receipt.Date| Delivered: @receipt.ReceiveDate | @receipt.User.FirstName</p>
+
     }
 </div>
