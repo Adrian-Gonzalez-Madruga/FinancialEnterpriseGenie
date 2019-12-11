@@ -87,5 +87,10 @@ namespace FinancialEnterpriseGenie.Controllers
             }
             return Content("ya ho" + counterString);
         }
+
+        public IActionResult Delete()
+        {
+            return Content("Deleted");
+        }
     }
 }

@@ -13,8 +13,8 @@ namespace FinancialEnterpriseGenie.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Email = table.Column<string>(nullable: true),
-                    Password = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: false),
+                    Password = table.Column<string>(nullable: false),
                     SecurityQuestion = table.Column<string>(nullable: true),
                     SecurityAnswer = table.Column<string>(nullable: true)
                 },
@@ -46,6 +46,7 @@ namespace FinancialEnterpriseGenie.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductName = table.Column<string>(nullable: true),
                     Price = table.Column<double>(nullable: false),
+                    MRP = table.Column<double>(nullable: false),
                     Rating = table.Column<double>(nullable: false),
                     Color = table.Column<string>(nullable: true)
                 },
