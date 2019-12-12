@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ Principle Author: Adrian Gonzalez Madruga
+ This is the Graph to be implemented in Stats/Index containing elements (lines)
+*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

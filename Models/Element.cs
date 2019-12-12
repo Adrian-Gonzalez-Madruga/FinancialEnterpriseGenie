@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ Principle Author: Adrian Gonzalez Madruga
+ Element encompasses a line for the graph to handle
+*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

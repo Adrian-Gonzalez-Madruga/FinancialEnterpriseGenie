@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ Principle Author: Adrian Gonzalez Madruga
+ Sale in Database
+*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

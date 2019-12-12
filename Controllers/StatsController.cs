@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ Principle Author: Adrian Gonzalez Madruga
+ Manages the Stats page taking in the form or by default processing sale data into a tangible graph to view
+*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using FinancialEnterpriseGenie.Extensions;
@@ -11,7 +15,7 @@ namespace FinancialEnterpriseGenie.Controllers
     {
         private GenieDatabase _context;
         private Random random = new Random((int)DateTime.Now.Ticks);
-        private string[] graphTypeList = { "Sales Over Time", "Profit Over Time", "Sales Growth Over Time" };
+        private string[] graphTypeList = { "Sales Over Time", "Total Sales Over Time", "Profit Over Time", "Sales Growth Over Time" };
         public StatsController(GenieDatabase context)
         {
             _context = context;
@@ -62,12 +66,16 @@ namespace FinancialEnterpriseGenie.Controllers
             if (graphForm.Type == graphTypeList[0])
             {
                 ViewBag.Graph = SalesByWeekGraph(selectedItems, graphForm.MinDate, graphForm.MaxDate, (int)(graphForm.NumWeeks ?? 1));
-            }
+            } 
             else if (graphForm.Type == graphTypeList[1])
+            {
+                ViewBag.Graph = TotalSalesByWeekGraph(selectedItems, graphForm.MinDate, graphForm.MaxDate, (int)(graphForm.NumWeeks ?? 1));
+            }
+            else if (graphForm.Type == graphTypeList[2])
             {
                 ViewBag.Graph = ProfitByWeekGraph(selectedItems, graphForm.MinDate, graphForm.MaxDate, (int)(graphForm.NumWeeks ?? 1));
             }
-            else if (graphForm.Type == graphTypeList[2])
+            else if (graphForm.Type == graphTypeList[3])
             {
                 ViewBag.Graph = SalesGrowthByWeekGraph(selectedItems, graphForm.MinDate, graphForm.MaxDate, (int)(graphForm.NumWeeks ?? 1));
             }
@@ -108,7 +116,7 @@ namespace FinancialEnterpriseGenie.Controllers
             List<int> entryCounter = new List<int>();
             for (int i = 0; i < items.Count; i++)
             {
-                DateTime date = new DateTime(2018, 01, 01);
+                DateTime date = new DateTime(2009, 01, 01);
                 Item item = items[i];
                 int counter = 0;
                 int numPreviousSales = 4;
@@ -169,6 +177,29 @@ namespace FinancialEnterpriseGenie.Controllers
                         avgPointNumWeeks.Add(sales[j + k].Units);
                     }
                     dataPoints.Add(new DataPoint((sales[j].Date - epoch).TotalSeconds * 1000, avgPointNumWeeks.Average()));
+                }
+                graph.elements.Add(new Element() { type = "spline", name = items[i].ProductName, dataPoints = dataPoints, xValueType = "dateTime", xValueFormatString = "DD MMM" });
+            }
+
+            return graph;
+        }
+
+        public Graph TotalSalesByWeekGraph(List<Item> items, DateTime minDate, DateTime maxDate, int numWeeks)
+        {
+            Graph graph = new Graph() { name = "Total Item Sales Every " + ((numWeeks > 1) ? "" + numWeeks : "") + " Week" + ((numWeeks > 1) ? "s" : ""), shared = "true", xTitle = "Date", xValueFormatString = "DD MMM YYYY", yTitle = "Number Of Units Sold" };
+            DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            for (int i = 0; i < items.Count; i++)
+            {
+                List<Sale> sales = _context.Sales.Where(s => s.Item == items[i] && s.Date >= minDate && s.Date <= maxDate).OrderBy(s => s.Date).ToList();
+                List<DataPoint> dataPoints = new List<DataPoint>();
+                List<int> sumPointNumWeeks = new List<int>();
+                for (int j = 0; j < sales.Count; j += numWeeks)
+                {
+                    for (int k = 0; (k < numWeeks && j + k < sales.Count); k++)
+                    {
+                        sumPointNumWeeks.Add(sales[j + k].Units);
+                    }
+                    dataPoints.Add(new DataPoint((sales[j].Date - epoch).TotalSeconds * 1000, sumPointNumWeeks.Sum()));
                 }
                 graph.elements.Add(new Element() { type = "spline", name = items[i].ProductName, dataPoints = dataPoints, xValueType = "dateTime", xValueFormatString = "DD MMM" });
             }

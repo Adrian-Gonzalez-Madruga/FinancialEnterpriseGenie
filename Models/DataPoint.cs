@@ -1,10 +1,13 @@
-﻿using System;
+﻿/*
+ Principle Author: Adrian Gonzalez Madruga
+ Retrived From https://canvasjs.com/asp-net-mvc-charts/
+*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
-//https://canvasjs.com/asp-net-mvc-charts/
 namespace FinancialEnterpriseGenie.Models
 {
     [DataContract]

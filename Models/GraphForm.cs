@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ Principle Author: Adrian Gonzalez Madruga
+ Form taken from Stats/Index to allow variable graph controls
+*/
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
