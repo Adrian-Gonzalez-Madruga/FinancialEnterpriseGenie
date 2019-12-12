@@ -1,0 +1,14 @@
+﻿@model Receipt
+@{
+    ViewData["Title"] = "Details";
+    Layout = "_formLayout";
+}
+
+
+<div class="form-block bg-grey">
+    <div class="lead text-center mb-3">@Model.Item.ProductName</div>
+    <p>Order ID: @Model.Id</p>
+    <p>Quantity: @Model.Quantity</p>
+    <p>Distriburor: @Model.Distributor.ShippingMethod</p>
+</div>
+

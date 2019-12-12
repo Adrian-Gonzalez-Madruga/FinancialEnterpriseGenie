@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FinancialEnterpriseGenie.Extensions;
 using FinancialEnterpriseGenie.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,11 @@ namespace FinancialEnterpriseGenie.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            if (CookieUtil.UserLoggedIn(Request))
+            {
+                return this.NotLoggedIn();
+            }
+
             var distributor = await _context
                 .Distributors
                 .ToListAsync();
