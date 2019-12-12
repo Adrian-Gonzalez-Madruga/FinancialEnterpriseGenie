@@ -19,7 +19,7 @@
             <tr onclick="location.href='/Receipt/Details/@receipt.Id'">
                 <td>@receipt.Id</td>
                 <td>@receipt.Item.ProductName</td>
-                <td>@receipt.Total</td>
+                <td>@receipt.Total.ToString("C")</td>
             </tr>
         }
 

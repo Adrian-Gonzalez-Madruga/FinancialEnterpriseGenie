@@ -5,10 +5,48 @@
 }
 
 
-<div class="form-block bg-grey">
-    <div class="lead text-center mb-3">@Model.Item.ProductName</div>
-    <p>Order ID: @Model.Id</p>
-    <p>Quantity: @Model.Quantity</p>
-    <p>Distriburor: @Model.Distributor.ShippingMethod</p>
-</div>
+    <div class="form-block bg-grey">
+        <div class="lead text-center mb-3">@Model.Item.ProductName</div>
+        <p>Order ID: @Model.Id</p>
+        <p>
+            Shipper: @Model.Distributor.ShippingMethod
+        </p>
+
+        <p>Date Purchased: @Model.Date.ToString("yy-MMM-dd ddd")</p>
+        <p>
+            @if (Model.ReceiveDate > DateTime.Now)
+            {
+                <span>Expected Delivery Date: </span>
+            }
+            else
+            {
+                <span>Date Delivered: </span>
+            }
+
+            @Model.ReceiveDate.ToString("yy-MMM-dd ddd")
+        </p>
+        <p>
+            Quantity: @Model.Quantity
+            @if (Model.Quantity > 1)
+            {
+                <span>units</span>
+            }
+            else
+            {
+                <span>unit</span>
+            }
+        </p>
+        <p>
+            Price per Unit: @Model.Item.MRP.ToString("C")
+        </p>
+        <p>
+            Shipping Price: @Model.Distributor.ShipPrice.ToString("C")
+        </p>
+        <p>
+            Tax: @Model.Tax.ToString("C")
+        </p>
+        <p>
+            Total: @Model.Total.ToString("C")
+        </p>
+    </div>
 
