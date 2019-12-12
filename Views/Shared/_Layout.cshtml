@@ -1,4 +1,7 @@
-﻿
+﻿<!--
+Principle Author: Connor Clarkson
+This is the general layout that adds a navbar for every view
+-->
 <!DOCTYPE html>
 
 <html>
@@ -27,7 +30,7 @@
             @if (CookieUtil.GetCookie(Context.Request, CookieUtil.USER_ID_KEY) != null)
             {<ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" asp-controller="Order" asp-action="Index">Order</a>
+                        <a class="nav-link" asp-controller="Order" asp-action="OrderForm">Order</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="Receipt" asp-action="UserReceipts">Receipt</a>

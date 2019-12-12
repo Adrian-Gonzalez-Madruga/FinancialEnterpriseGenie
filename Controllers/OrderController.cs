@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ Principle Author: Connor Clarkson
+ This controller manipulates all data surrounding the Order Form
+*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,7 +22,7 @@ namespace FinancialEnterpriseGenie.Controllers
         {
             _context = context;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> OrderForm()
         {
             if (CookieUtil.GetCookie(Request, CookieUtil.USER_ID_KEY) == null)
             {

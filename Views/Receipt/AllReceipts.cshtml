@@ -1,4 +1,8 @@
-﻿@model IEnumerable<FinancialEnterpriseGenie.Models.Receipt>
+﻿<!--
+Principle Author: Connor Clarkson
+This view is an admin view that is only accessible through the URL and displays every receipt in the database and who ordered it
+-->
+@model IEnumerable<FinancialEnterpriseGenie.Models.Receipt>
 @{
     ViewData["Title"] = "All Receipts";
     Layout = "_Layout";
@@ -12,22 +16,22 @@
 
     @foreach (var receipt in Model)
     {
-    <p>
-        Order ID: @receipt.Id | Product: @receipt.Item.ProductName | Amount: @receipt.Quantity | Price: @receipt.Total.ToString("C")
-        | Date Purchased: @receipt.Date.ToString("yy-MMM-dd ddd") | 
+        <p>
+            Order ID: @receipt.Id | Product: @receipt.Item.ProductName | Amount: @receipt.Quantity | Price: @receipt.Total.ToString("C")
+            | Date Purchased: @receipt.Date.ToString("yy-MMM-dd ddd") |
 
-        @if (receipt.ReceiveDate > DateTime.Now)
-        {
-            <span>Expected Delivery Date: </span>
-        }
-        else
-        {
-            <span>Date Delivered: </span>
-        }
-        @receipt.ReceiveDate.ToString("yy-MMM-dd ddd") |
+            @if (receipt.ReceiveDate > DateTime.Now)
+            {
+                <span>Expected Delivery Date: </span>
+            }
+            else
+            {
+                <span>Date Delivered: </span>
+            }
+            @receipt.ReceiveDate.ToString("yy-MMM-dd ddd") |
 
-        @receipt.User.FirstName @receipt.User.LastName | User ID: @receipt.User.Id
-    </p>
+            @receipt.User.FirstName @receipt.User.LastName | User ID: @receipt.User.Id
+        </p>
 
-}
+    }
 </div>

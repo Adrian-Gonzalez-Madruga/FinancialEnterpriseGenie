@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ Principle Author: Connor Clarkson
+ This controller manipulates data surrounding the receipt database
+*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

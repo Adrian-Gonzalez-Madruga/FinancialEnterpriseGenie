@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ Principle Author: Connor Clarkson
+ This is the receipt model that gets/sets all the data for receipts
+*/
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
