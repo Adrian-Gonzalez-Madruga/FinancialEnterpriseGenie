@@ -50,14 +50,14 @@
     </script>
 }
 
-<div class="row m-3" style="height: 90vh">
-    <div class="col-lg-12 col-xl-4 d-flex">
-        <div class="form-block bg-grey h-100">
+<div class="row m-3">
+    <div class="col-lg-12 col-xl-4">
+        <div class="form-block bg-grey">
             <div class="display-4">@ViewBag.Graph.name</div>
             <div class="vpad-sm"></div>
             <form asp-action="Index" method="post" class="form-block bg-info text-light">
                 <label asp-for="Type">Graph Type</label>
-                <span class="text-danger small" asp-validation-for="Type"></span>
+                <span class="text-warning small" asp-validation-for="Type"></span>
                 <select id="Type" asp-for="Type" class="form-control">
                     @{ string[] graphTypeList = ViewBag.GraphTypeList;}
                     @for (int i = 0; i < graphTypeList.Length; i++)
@@ -74,7 +74,7 @@
                 </select>
                 <div class="form-group">
                     <label asp-for="NumWeeks">DataPoint Size</label>
-                    <span class="text-danger small" asp-validation-for="NumWeeks"></span>
+                    <span class="text-warning small" asp-validation-for="NumWeeks"></span>
                     <input type="number" asp-for="NumWeeks" class="form-control" id="NumWeeks" placeholder="Number of Weeks Per DataPoint > 0">
                 </div>
                 <div class="row">
@@ -90,32 +90,31 @@
                         }
                     </div>
                     <div class="col">
-
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="lead">Time Span</div>
-                    <div class="row">
-                        <div class="col-6">
-                            <label>Min Date</label> <br />
-                            <div class="btn-group bg-white rounded">
-                                <select class="btn d-flex" asp-for="MinDay" asp-items="DateSelect.Days">
-                                </select>
-                                <select class="btn d-flex" asp-for="MinMonth" asp-items="DateSelect.Months">
-                                </select>
-                                <select class="btn d-flex" asp-for="MinYear" asp-items="DateSelect.Years">
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <label>Max Date</label> <br />
-                            <div class="btn-group bg-white rounded">
-                                <select class="btn dropdown" asp-for="MaxDay" asp-items="DateSelect.Days">
-                                </select>
-                                <select class="btn" asp-for="MaxMonth" asp-items="DateSelect.Months">
-                                </select>
-                                <select class="btn" asp-for="MaxYear" asp-items="DateSelect.Years">
-                                </select>
+                        <div class="form-group">
+                            <div class="lead">Time Span</div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label>Min Date</label> <br />
+                                    <div class="btn-group bg-white rounded">
+                                        <select class="btn d-flex" asp-for="MinDay" asp-items="DateSelect.Days">
+                                        </select>
+                                        <select class="btn d-flex" asp-for="MinMonth" asp-items="DateSelect.Months">
+                                        </select>
+                                        <select class="btn d-flex" asp-for="MinYear" asp-items="DateSelect.Years">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <label>Max Date</label> <br />
+                                    <div class="btn-group bg-white rounded">
+                                        <select class="btn dropdown" asp-for="MaxDay" asp-items="DateSelect.Days">
+                                        </select>
+                                        <select class="btn" asp-for="MaxMonth" asp-items="DateSelect.Months">
+                                        </select>
+                                        <select class="btn" asp-for="MaxYear" asp-items="DateSelect.Years">
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
