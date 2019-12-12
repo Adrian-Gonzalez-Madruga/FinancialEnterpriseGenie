@@ -58,7 +58,7 @@ namespace FinancialEnterpriseGenie.Controllers
                     selectedItems.Add(items[i]);
                 }
             }
-            ViewBag.Graph = DefaultGraph(selectedItems, graphForm.MinDate ?? sales.Min(s => s.Date), graphForm.MaxDate ?? sales.Max(s => s.Date), (int)(graphForm.NumWeeks ?? 1));
+            ViewBag.Graph = DefaultGraph(selectedItems, graphForm.MinDate, graphForm.MaxDate, (int)(graphForm.NumWeeks ?? 1));
 
             ViewBag.Items = items;
             ViewBag.GraphTypeList = graphTypeList;

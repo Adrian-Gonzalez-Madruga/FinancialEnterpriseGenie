@@ -13,11 +13,22 @@ namespace FinancialEnterpriseGenie.Models
         public string Type { get; set; }
         [Required(ErrorMessage = "Number of Decimal Weeks Per DataPoint Mandatory")]
         public decimal? NumWeeks { get; set; }
-        [DataType(DataType.Date)]
-        [Required(ErrorMessage = "Starting Date Required")]
-        public DateTime? MinDate { get; set; }
-        [DataType(DataType.Date)]
-        [Required(ErrorMessage = "Ending Date Required")]
-        public DateTime? MaxDate { get; set; }
+        public DateTime MinDate {
+            get {
+                return new DateTime(MinYear, MinMonth, MinDay);
+            }
+        }
+        public DateTime MaxDate {
+            get {
+                return new DateTime(MaxYear, MaxMonth, MaxDay);
+            }
+        }
+
+        public int MinDay { get; set; }
+        public int MinMonth { get; set; }
+        public int MinYear { get; set; }
+        public int MaxDay { get; set; }
+        public int MaxMonth { get; set; }
+        public int MaxYear { get; set; }
     }
 }
