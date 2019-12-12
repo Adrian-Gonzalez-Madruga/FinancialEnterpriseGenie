@@ -21,7 +21,9 @@ namespace FinancialEnterpriseGenie.Controllers
         {
             _context = context;
         }
-
+        /*
+         The UserReceipts method was created by Richard Perocho
+        */
         public IActionResult UserReceipts()
         {
             if (CookieUtil.GetCookie(Request, CookieUtil.USER_ID_KEY) == null)
@@ -33,7 +35,10 @@ namespace FinancialEnterpriseGenie.Controllers
                 .Include(r => r.Item)
                 .Where(r => r.User.Id == Convert.ToInt32(CookieUtil.GetCookie(Request, CookieUtil.USER_ID_KEY))).ToList());
         }
-
+        /*
+         The AllReceipts Method was created by Connor Clarkson
+         This method includes the users and items associated with each receipt and passes the receipt variable to the AllReceipts view
+        */
         public async Task<IActionResult> AllReceipts()
         {
             var receipt = await _context
@@ -44,7 +49,9 @@ namespace FinancialEnterpriseGenie.Controllers
 
             return View(receipt);
         }
-
+        /*
+         The Details method was created by Richard Perocho
+        */
         public IActionResult Details(int id)
         {
             var receipt = _context.Receipts
