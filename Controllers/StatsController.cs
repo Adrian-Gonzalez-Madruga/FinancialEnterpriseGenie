@@ -16,6 +16,7 @@ namespace FinancialEnterpriseGenie.Controllers
         private GenieDatabase _context;
         private Random random = new Random((int)DateTime.Now.Ticks);
         private string[] graphTypeList = { "Sales Over Time", "Total Sales Over Time", "Profit Over Time", "Sales Growth Over Time" };
+
         public StatsController(GenieDatabase context)
         {
             _context = context;
@@ -24,12 +25,12 @@ namespace FinancialEnterpriseGenie.Controllers
         [HttpPost]
         public IActionResult Index(GraphForm graphForm)
         {
-            if (CookieUtil.GetCookie(Request, CookieUtil.USER_ID_KEY) == null)
+            if (CookieUtil.GetCookie(Request, CookieUtil.USER_ID_KEY) == null) // unable to open unless signed in
             {
                 return this.NotLoggedIn();
             }
 
-            if (graphForm.MinDate == null || graphForm.MaxDate == null || graphForm.MaxDate < graphForm.MinDate || graphForm.MinDate > graphForm.MaxDate)
+            if (graphForm.MinDate == null || graphForm.MaxDate == null || graphForm.MaxDate < graphForm.MinDate || graphForm.MinDate > graphForm.MaxDate) // form validation
             {
                 ModelState.AddModelError("MinDate", "MinDate must be before MaxDate");
                 ModelState.AddModelError("MaxDate", "MinDate must be before MaxDate");
@@ -42,7 +43,7 @@ namespace FinancialEnterpriseGenie.Controllers
             {
                 ModelState.AddModelError("ChosenItems", "Must Select at least 1 item");
             }
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid) // if invalid return null graph
             {
                 List<Item> items1 = _context.Items.ToList();
                 List<Sale> sales1 = _context.Sales.ToList();
@@ -52,7 +53,7 @@ namespace FinancialEnterpriseGenie.Controllers
                 return View();
             }
 
-            List<Item> items = _context.Items.ToList();
+            List<Item> items = _context.Items.ToList(); // obtain specific info for graph
             List<Sale> sales = _context.Sales.ToList();
             List<Item> selectedItems = new List<Item>();
             for (int i = 0; i < items.Count; i++)
@@ -63,9 +64,9 @@ namespace FinancialEnterpriseGenie.Controllers
                 }
             }
 
-            if (graphForm.Type == graphTypeList[0])
+            if (graphForm.Type == graphTypeList[0]) // select graph type based on given
             {
-                ViewBag.Graph = SalesByWeekGraph(selectedItems, graphForm.MinDate, graphForm.MaxDate, (int)(graphForm.NumWeeks ?? 1));
+                ViewBag.Graph = SalesByWeekGraph(selectedItems, graphForm.MinDate, graphForm.MaxDate, (int)(graphForm.NumWeeks ?? 1)); 
             } 
             else if (graphForm.Type == graphTypeList[1])
             {
@@ -84,7 +85,7 @@ namespace FinancialEnterpriseGenie.Controllers
             ViewBag.GraphTypeList = graphTypeList;
             return View();
         }
-        public IActionResult Index()
+        public IActionResult Index() // dafault index returns default graph
         {
             if (CookieUtil.GetCookie(Request, CookieUtil.USER_ID_KEY) == null)
             {
@@ -94,7 +95,7 @@ namespace FinancialEnterpriseGenie.Controllers
             List<Item> items = _context.Items.ToList();
             List<Sale> sales = _context.Sales.ToList();
             ViewBag.Items = items;
-            if (sales.Count == 0)
+            if (sales.Count == 0) // if no data do not call sales data
             {
                 ViewBag.Graph = new Graph() { name = "Item Sales Every  Week", shared = "true", xTitle = "Date", xValueFormatString = "DD MMM YYYY", yTitle = "Number Of Units Sold" };
             } else { 
@@ -104,57 +105,49 @@ namespace FinancialEnterpriseGenie.Controllers
             return View();
         }
 
-        public IActionResult Create()
+        public IActionResult Create() // creates set of Sale data per item (admin)
         {
-            //int[] startItemSale = {45, 30, 9, 90, 36, 42, 30, 24, 51, 81};
             double[] weekFluctuation = { 0.60, 0.70, 0.70, 0.85, 0.95, 1.25, 1.4, 1, 1.05, 1, 1.25, 1.2, 1.1, 0.9, 0.9, 0.8, 0.68, 0.95, 1.05, 1.05, 1.1, 1.1, 1, 1, 1, 1, 1.15, 1.1, 1.15, 1.2, 1.2, 1.25, 1.3, 1.3, 1.25, 1.3, 1.45, 1.2, 1, 1, 0.8, 1, 0.8, 0.65, 0.55, 0.5, 2, 2, 1, 1.25, 1.7, 1.9 };
             int numOfYears = 10;
             int barSize = 12;
             List<int> sales = new List<int>();
             List<Item> items = _context.Items.ToList();
             double rating;
-            List<int> entryCounter = new List<int>();
-            for (int i = 0; i < items.Count; i++)
+            for (int i = 0; i < items.Count; i++) // for each item
             {
                 DateTime date = new DateTime(2009, 01, 01);
                 Item item = items[i];
                 int counter = 0;
-                int numPreviousSales = 4;
+                int numPreviousSales = 3;
                 Queue<int> pastSales = new Queue<int>();
                 int startItemSale = random.Next(15, 90);
                 pastSales.Enqueue(startItemSale);
-                for (int j = 0; j < (numOfYears * weekFluctuation.Length); j++)
+                for (int j = 0; j < (numOfYears * weekFluctuation.Length); j++) // for each week in number of years
                 {
                     double mean = sales.Count > 0 ? sales.Average() : startItemSale;
-                    double variance = (weekFluctuation[(j % weekFluctuation.Length)] * ((rating = item.Rating) > 3 ? 1 + ((rating - 3) / 2) : ((rating - 1) / 2)));
+                    double variance = (weekFluctuation[(j % weekFluctuation.Length)] * ((rating = item.Rating) > 3 ? 1 + ((rating - 3) / 2) : ((rating - 1) / 2))); // calculate sales
                     bool isPos = (variance >= 1);
                     int min = Convert.ToInt32(-1 * ((barSize / 2) * (isPos ? (variance - 1) : (variance + 1))));
                     int max = Convert.ToInt32(variance * (barSize / 2));
                     int unitsSold = Convert.ToInt32(Math.Round(pastSales.Average() + (random.Next(min, max))));
                     unitsSold = unitsSold < 0 ? 0 : unitsSold;
-                    if (pastSales.Count >= numPreviousSales)
+                    if (pastSales.Count >= numPreviousSales) // graph based off last amount of previous sales
                     {
                         pastSales.Dequeue();
                     }
                     pastSales.Enqueue(unitsSold);
                     sales.Append(unitsSold);
-                    Sale sale = new Sale() { Item = item, Units = unitsSold, Date = date };
+                    Sale sale = new Sale() { Item = item, Units = unitsSold, Date = date }; // add sale
                     _context.Sales.Add(sale);
                     date = date.AddDays(7);
                     counter++;
                 }
-                entryCounter.Append(counter);
             }
             _context.SaveChanges();
-            String counterString = "";
-            for (int i = 0; i < entryCounter.Count; i++)
-            {
-                counterString += "\n" + i + ". " + entryCounter[i];
-            }
             return RedirectToAction("Index", "Stats");
         }
 
-        public IActionResult Delete()
+        public IActionResult Delete() // deletes all sales (admin)
         {
             _context.Sales.RemoveRange(_context.Sales.ToList());
             _context.SaveChangesAsync();
