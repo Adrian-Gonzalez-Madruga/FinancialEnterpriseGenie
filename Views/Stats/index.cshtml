@@ -74,8 +74,8 @@
                 </select>
                 <div class="form-group">
                     <label asp-for="NumWeeks">DataPoint Size</label>
+                    <select class="custom-select" asp-for="NumWeeks" asp-items="new SelectList(Enumerable.Range(1, 7-1).ToList())"></select>
                     <span class="text-warning small" asp-validation-for="NumWeeks"></span>
-                    <input type="number" asp-for="NumWeeks" class="form-control" id="NumWeeks" placeholder="Number of Weeks Per DataPoint > 0">
                 </div>
                 <div class="row">
                     <div class="col">
