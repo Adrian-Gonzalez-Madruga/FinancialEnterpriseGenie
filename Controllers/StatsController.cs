@@ -61,15 +61,15 @@ namespace FinancialEnterpriseGenie.Controllers
 
             if (graphForm.Type == graphTypeList[0])
             {
-                ViewBag.Graph = SalesByWeekGraph(selectedItems, graphForm.MinDate ?? sales.Min(s => s.Date), graphForm.MaxDate ?? sales.Max(s => s.Date), (int)(graphForm.NumWeeks ?? 1));
+                ViewBag.Graph = SalesByWeekGraph(selectedItems, graphForm.MinDate, graphForm.MaxDate, (int)(graphForm.NumWeeks ?? 1));
             }
             else if (graphForm.Type == graphTypeList[1])
             {
-                ViewBag.Graph = ProfitByWeekGraph(selectedItems, graphForm.MinDate ?? sales.Min(s => s.Date), graphForm.MaxDate ?? sales.Max(s => s.Date), (int)(graphForm.NumWeeks ?? 1));
+                ViewBag.Graph = ProfitByWeekGraph(selectedItems, graphForm.MinDate, graphForm.MaxDate, (int)(graphForm.NumWeeks ?? 1));
             }
             else if (graphForm.Type == graphTypeList[2])
             {
-                ViewBag.Graph = SalesGrowthByWeekGraph(selectedItems, graphForm.MinDate ?? sales.Min(s => s.Date), graphForm.MaxDate ?? sales.Max(s => s.Date), (int)(graphForm.NumWeeks ?? 1));
+                ViewBag.Graph = SalesGrowthByWeekGraph(selectedItems, graphForm.MinDate, graphForm.MaxDate, (int)(graphForm.NumWeeks ?? 1));
             }
 
             ViewBag.Items = items;
