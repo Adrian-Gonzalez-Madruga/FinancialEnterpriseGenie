@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FinancialEnterpriseGenie.Extensions;
 using FinancialEnterpriseGenie.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,9 +20,13 @@ namespace FinancialEnterpriseGenie.Controllers
 
         public IActionResult UserReceipts()
         {
-
-            return View(_context.Receipts);
+            if (CookieUtil.UserLoggedIn(Request))
+            {
+                return this.NotLoggedIn();
+            }
+            return View(_context.Receipts.Include(r => r.Item).Where(r => r.User.Id == Convert.ToInt32(CookieUtil.GetCookie(Request, CookieUtil.USER_ID_KEY))).ToList());
         }
+
         public async Task<IActionResult> AllReceipts()
         {
             var receipt = await _context
@@ -33,5 +38,17 @@ namespace FinancialEnterpriseGenie.Controllers
             return View(receipt);
         }
 
+        public IActionResult Details(int id)
+        {
+            var receipt = _context.Receipts
+                .Include(r => r.Item)
+                .Include(r => r.Distributor)
+                .FirstOrDefault(r => r.Id == id);
+            if (receipt == null)
+            {
+                return Content("could not find receipt");
+            }
+            return View(receipt);
+        }
     }
 }

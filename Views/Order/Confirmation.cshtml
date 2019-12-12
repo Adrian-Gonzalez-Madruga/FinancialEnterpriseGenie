@@ -23,7 +23,7 @@
         <div class="col border bg-light">
             <h2>Product</h2>
             <p>
-                @Model.Item.ProductName | @Model.Item.Price.ToString("C") each | @Model.Quantity
+                @Model.Item.ProductName | @Model.Item.MRP.ToString("C") each | @Model.Quantity
                 @if (Model.Quantity > 1)
                 {
                     <span>units</span>

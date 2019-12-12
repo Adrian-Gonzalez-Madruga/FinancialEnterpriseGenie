@@ -1,4 +1,27 @@
-﻿@{
+﻿@model IEnumerable<Receipt>
+@{
     ViewData["Title"] = "User Receipts";
     Layout = "_formLayout";
 }
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th class="w-25">Order ID</th>
+            <th>Item Name</th>
+            <th>Total</th>
+
+        </tr>
+    </thead>
+    <tbody class="table table-hover">
+        @foreach (var receipt in Model)
+        {
+            <tr onclick="location.href='/Receipt/Details/@receipt.Id'">
+                <td>@receipt.Id</td>
+                <td>@receipt.Item.ProductName</td>
+                <td>@receipt.Total</td>
+            </tr>
+        }
+
+    </tbody>
+</table>
