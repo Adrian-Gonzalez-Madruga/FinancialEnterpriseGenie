@@ -1,6 +1,6 @@
 ﻿/*
  Principle Author: Adrian Gonzalez Madruga
- Retrived From https://canvasjs.com/asp-net-mvc-charts/
+ Retrieved From https://canvasjs.com/asp-net-mvc-charts/
 */
 using System;
 using System.Collections.Generic;

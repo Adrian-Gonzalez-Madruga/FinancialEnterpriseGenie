@@ -1,6 +1,6 @@
 ﻿/*
  Principle Author: Richard Perocho
- This controller manages user resetting passwrd
+ This controller manages user resetting password
 */
 using System;
 using System.Collections.Generic;
