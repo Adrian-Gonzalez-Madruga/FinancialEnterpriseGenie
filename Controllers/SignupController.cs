@@ -23,11 +23,10 @@ namespace FinancialEnterpriseGenie.Controllers
         [HttpPost]
         public async Task<IActionResult> SignupForm(SignupModel _signupModel)
         {
-            if (!_signupModel.EmailsMatch())
+            if (_conext.Credentials.FirstOrDefault(c => c.Email == _signupModel.Email) != null)
             {
-                ModelState.AddModelError("ConfirmEmail", "Emails do not match");
+                ModelState.AddModelError("Email", "This email is already has a registered account");
             }
-
             if (!_signupModel.PasswordsMatch())
             {
                 ModelState.AddModelError("ConfirmPassword", "Passwords do no match");

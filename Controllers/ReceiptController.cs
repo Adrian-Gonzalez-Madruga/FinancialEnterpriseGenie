@@ -24,7 +24,10 @@ namespace FinancialEnterpriseGenie.Controllers
             {
                 return this.NotLoggedIn();
             }
-            return View(_context.Receipts.Include(r => r.Item).Where(r => r.User.Id == Convert.ToInt32(CookieUtil.GetCookie(Request, CookieUtil.USER_ID_KEY))).ToList());
+
+            return View(_context.Receipts
+                .Include(r => r.Item)
+                .Where(r => r.User.Id == Convert.ToInt32(CookieUtil.GetCookie(Request, CookieUtil.USER_ID_KEY))).ToList());
         }
 
         public async Task<IActionResult> AllReceipts()

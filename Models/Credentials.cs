@@ -18,9 +18,12 @@ namespace FinancialEnterpriseGenie.Models
 
         public static string[] SecurityQuestions = new string[]
         {
-            "Favourite videogame",
+            "What is your favourite videogame?",
             "What was your first pet's name? ",
-            "What is your mother's maiden name?"
+            "What is your mother's maiden name?",
+            "Where is your hometown?",
+            "Where did you go to High school / College?",
+            "What was they first company you worked for?"
         };
     }
 }

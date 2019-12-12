@@ -10,8 +10,6 @@ namespace FinancialEnterpriseGenie.Models
     {
         [Required(ErrorMessage = "Please enter your email")]
         public string Email { get; set; }
-        [Required(ErrorMessage = "confirmation email missing")]
-        public string ConfirmEmail { get; set; }
         [Required(ErrorMessage = "Please enter desired password")]
         public string Password { get; set; }
         [Required(ErrorMessage = "confirmation password missing")]
@@ -29,12 +27,13 @@ namespace FinancialEnterpriseGenie.Models
         [Required(ErrorMessage = "Please enter your credit card number")]
         [RegularExpression(@"^\d{4}-\d{4}-\d{4}-\d{4}$", ErrorMessage = "please follow the format: XXXX-XXXX-XXXX-XXXX")]
         public string CreditCardNumber { get; set; }
-        [Required(ErrorMessage = "Please enter your date of birth")]
-        public DateTime DateOfBirth { get; set; }
-
-        public bool EmailsMatch()
-        {
-            return (Email == ConfirmEmail);
+        public int DayOfBirth { get; set; }
+        public int MonthOfBirth { get; set; }
+        public int YearOfBirth { get; set; }
+        public DateTime DateOfBirth {
+            get {
+                return new DateTime(YearOfBirth, MonthOfBirth, DayOfBirth);
+            }
         }
 
         public bool PasswordsMatch()

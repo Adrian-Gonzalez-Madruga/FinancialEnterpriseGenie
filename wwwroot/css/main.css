@@ -18,3 +18,7 @@
 .h-fill {
     height: 100vh;
 }
+
+.round {
+    border-radius: 12px;
+}

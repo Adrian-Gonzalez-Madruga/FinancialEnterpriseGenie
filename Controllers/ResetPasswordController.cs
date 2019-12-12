@@ -11,7 +11,7 @@ namespace FinancialEnterpriseGenie.Controllers
     {
         private GenieDatabase _context;
 
-        public ResetPasswordController(GenieDatabase context)
+        public ResetPasswordController(GenieDatabase context) // TODO: temporarily save credentials id to cookie, then delete when finished.
         {
             _context = context;
         }
