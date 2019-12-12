@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ Principle Author: Connor Clarkson
+ This api allows for viewing all receipts in the receipt table and all associated values
+*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

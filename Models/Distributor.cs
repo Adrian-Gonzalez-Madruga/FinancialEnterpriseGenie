@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ Principle Author: Connor Clarkson
+ This is the distributor model that gets/sets all the data for distributors
+*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ Principle Author: Connor Clarkson
+ This is the item/distributor model that gets/sets an object list for both Items and Distributors
+*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,6 +13,5 @@ namespace FinancialEnterpriseGenie.Models
     {
         public ICollection<Distributor> DistributorId { get; set; }
         public ICollection<Item> ItemId { get; set; }
-        public int Quantity { get; set; }
     }
 }

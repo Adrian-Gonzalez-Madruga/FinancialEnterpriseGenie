@@ -1,0 +1,63 @@
+﻿<!--
+Principle Author: Connor Clarkson
+This is the order form that allows the user to select a product, amount, and shipping method which then submits to the confirmation page
+-->
+@model FinancialEnterpriseGenie.Models.ItemDistributorList
+@{
+    Layout = "_formLayout";
+}
+<style>
+    .form-group {
+        padding-bottom: 2vh
+    }
+
+    h1 {
+        padding-top: 1vh
+    }
+</style>
+<div style="text-align: center;" class="form-block border bg-grey">
+    <div class="form-group">
+        <h1>Order Form</h1>
+    </div>
+
+    <form asp-action="Confirmation" method="post">
+        <div class="form-group">
+            <label for="itemId">Catalog</label>
+            <select class="form-control" id="itemId" name="itemId">
+                @foreach (var item in Model.ItemId)
+                {
+                    <option value="@item.Id">
+                        @item.ProductName | @item.MRP.ToString("C") | Colour: @item.Color | Rating @item.Rating
+                    </option>
+                }
+
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="quantity">Amount<br /></label>
+            <input class="form-control" type="number" id="quantity" name="quantity" placeholder="Enter an Amount" />
+        </div>
+        <div class="form-group">
+            <label for="distributorId">Shipping Method</label>
+            <select class="form-control" id="distributorId" name="distributorId">
+                @foreach (var ship in Model.DistributorId)
+                {
+                    <option value="@ship.Id">
+                        @ship.ShippingMethod | @ship.ShipPrice.ToString("C") | @ship.TimeToShip
+                        @if (ship.TimeToShip > 1)
+                        {
+                            <span>days</span>
+                        }
+                        else
+                        {
+                            <span>day</span>
+                        }
+                    </option>
+
+                }
+
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg">Submit Order</button>
+    </form>
+</div>
