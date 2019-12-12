@@ -19,20 +19,35 @@ namespace FinancialEnterpriseGenie.Controllers
         [HttpPost]
         public IActionResult Index(GraphForm graphForm)
         {
-            string outputs = graphForm.Type + " " + graphForm.ChosenItems[1]; 
-            return Content(outputs);
+
+            List<Item> items = _context.Items.ToList();
+            List<Item> selectedItems = new List<Item>();
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (graphForm.ChosenItems[i])
+                {
+                    selectedItems.Add(items[i]);
+                }
+            }
+            ViewBag.Graph = DefaultGraph(selectedItems);
+
+            ViewBag.Items = items;
+            ViewBag.GraphTypeList = graphTypeList;
+            return View();
+            //return Content(" " + graphForm.ChosenItems[0] + " " + graphForm.ChosenItems[2] + " " + graphForm.ChosenItems[2] + " " + selectedItems.Count);
         }
         public IActionResult Index()
         {
-            ViewBag.Items = _context.Items.ToList();
-            ViewBag.Graph = DefaultGraph();
+            List<Item> items = _context.Items.ToList();
+            ViewBag.Items = items;
+            ViewBag.Graph = DefaultGraph(items);
             ViewBag.GraphTypeList = graphTypeList;
             return View();
         }
 
         public IActionResult Create()
         {
-            int[] startItemSale = {45, 30, 9, 90, 36, 42, 30, 24, 51, 81};
+            //int[] startItemSale = {45, 30, 9, 90, 36, 42, 30, 24, 51, 81};
             double[] weekFluctuation = {0.60, 0.70, 0.70, 0.85, 0.95, 1.25, 1.4, 1, 1.05, 1, 1.25, 1.2, 1.1, 0.9, 0.9, 0.8, 0.68, 0.95, 1.05, 1.05, 1.1, 1.1, 1, 1, 1, 1, 1.15, 1.1, 1.15, 1.2, 1.2, 1.25, 1.3, 1.3, 1.25, 1.3, 1.45, 1.2, 1, 1, 0.8, 1, 0.8, 0.65, 0.55, 0.5, 2, 2, 1, 1.25, 1.7, 1.9};
             int numOfYears = 2;
             int barSize = 12;
@@ -47,10 +62,11 @@ namespace FinancialEnterpriseGenie.Controllers
                 int counter = 0;
                 int numPreviousSales = 4;
                 Queue<int> pastSales = new Queue<int>();
-                pastSales.Enqueue(startItemSale[i]);
+                int startItemSale = random.Next(15, 90);
+                pastSales.Enqueue(startItemSale);
                 for (int j = 0; j < (numOfYears * weekFluctuation.Length); j++)
                 {
-                    double mean = sales.Count > 0 ? sales.Average() : startItemSale[i];
+                    double mean = sales.Count > 0 ? sales.Average() : startItemSale;
                     double variance = (weekFluctuation[(j % weekFluctuation.Length)] * ((rating = item.Rating) > 3 ? 1 + ((rating - 3)/2) : ((rating - 1)/2)));
                     bool isPos = (variance >= 1);
                     int min = Convert.ToInt32(-1*((barSize / 2) * (isPos ? (variance - 1) :(variance + 1))));
@@ -86,10 +102,9 @@ namespace FinancialEnterpriseGenie.Controllers
             return Content("Deleted Sales");
         }
 
-        public Graph DefaultGraph()
+        public Graph DefaultGraph(List<Item> items)
         {
             Graph graph = new Graph() { name = "Item Sales By Week", shared = "true", xTitle = "Date", xValueFormatString = "DD MMM YYYY", yTitle = "Number Of Units Sold" };
-            List<Item> items = _context.Items.ToList();
             DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             for (int i = 0; i < items.Count; i++)
             {

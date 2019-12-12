@@ -8,7 +8,7 @@ namespace FinancialEnterpriseGenie.Models
 {
     public class GraphForm
     {
-        public string[] ChosenItems { get; set; }
+        public bool[] ChosenItems { get; set; } = new bool[1000];
         [Required(ErrorMessage = "A Graph Type Must Be Selected")]
         public string Type { get; set; }
         [Required(ErrorMessage = "Number of Decimal Weeks Per DataPoint Mandatory")]
