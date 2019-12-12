@@ -1,4 +1,5 @@
-﻿@{
+﻿@model GraphForm
+@{
     ViewData["Title"] = "statistics";
     Layout = "_Layout";
 }
@@ -60,16 +61,17 @@
             aliquet massa. Sed ut rutrum erat, nec ultrices mauris. Vestibulum at ex sollicitudin, dignissim dolor a, tempus libero.
 
             <div class="vpad-sm"></div>
-            <form>
+            <form asp-action="Index" method="post">
                 <div class="row">
                     <div class="col">
-                        <div class="form-block bg-info text-light">
+                        <div class="form-block bg-info text-light h-100">
                             <div class="lead text-light">Select Elements To Display</div>
+                            <span class="text-danger small" asp-validation-for="ChosenItems"></span>
                             @{ List<Item> items = ViewBag.Items;}
                             @for (int i = 0; i < items.Count; i++)
                             {
-                                <input class="form-check-input" type="checkbox" name="items" value="@items[i].Id" id="Item @items[i].Id">
-                                <label class="form-check-label" for="Item @items[i].Id">
+                                <input class="form-check-input" type="checkbox" asp-for="ChosenItems" value="@items[i].Id" id="Item @items[i].Id">
+                                <label class="form-check-label" asp-for="ChosenItems">
                                     @items[i].ProductName
                                 </label>
                             }
@@ -83,32 +85,41 @@
                         <div class="form-block bg-info text-light">
                             <div class="lead text-light">Select Graph Information</div>
                             <div class="form-group">
-                                <label for="type">Graph Type</label>
-                                <select id="type" name="type" class="form-control">
+                                <label asp-for="Type">Graph Type</label>
+                                <span class="text-danger small" asp-validation-for="Type"></span>
+                                <select id="Type" asp-for="Type" class="form-control">
                                     @{ string[] graphTypeList = ViewBag.GraphTypeList;}
                                     @for (int i = 0; i < graphTypeList.Length; i++)
                                     {
-                                        @if (i == 0) { <option selected>@graphTypeList[i]</option> } else { <option>@graphTypeList[i]</option>}
+                                        @if (i == 0)
+                                        {
+                                            <option selected>@graphTypeList[i]</option>
+                                        }
+                                        else
+                                        {
+                                            <option>@graphTypeList[i]</option>
+                                        }
                                     }
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="dataPointSize">DataPoint Size</label>
-                                <input type="number" name="numWeeks" class="form-control" id="dataPointSize" placeholder="Number of Weeks Per DataPoint > 0">
+                                <label asp-for="NumWeeks">DataPoint Size</label>
+                                <span class="text-danger small" asp-validation-for="NumWeeks"></span>
+                                <input type="number" asp-for="NumWeeks" class="form-control" id="NumWeeks" placeholder="Number of Weeks Per DataPoint > 0">
                             </div>
                         </div>
                         <br />
                         <div class="form-block bg-warning text-dark row">
                             <div class="lead">Time Span</div>
                             <div class="form-group col">
-                                <label for="DateOfBirth"></label>
-                                <input class="form-control" type="date" for="DateOfBirth" placeholder="Date of Birth" />
-                                <span class="text-danger small" for="DateOfBirth"></span>
+                                <label asp-for="MinDate"></label>
+                                <span class="text-danger small" asp-validation-for="MinDate"></span>
+                                <input class="form-control" type="date" asp-for="MinDate" placeholder="From Date" />
                             </div>
                             <div class="form-group col">
-                                <label for="DateOfBirth"></label>
-                                <input class="form-control" type="date" for="DateOfBirth" placeholder="Date of Birth" />
-                                <span class="text-danger small" for="DateOfBirth"></span>
+                                <label for="MaxDate"></label>
+                                <span class="text-danger small" asp-validation-for="MaxDate"></span>
+                                <input class="form-control" type="date" asp-for="MaxDate" placeholder="To Date" />
                             </div>
                         </div>
                     </div>

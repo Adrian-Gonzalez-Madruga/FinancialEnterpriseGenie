@@ -17,9 +17,10 @@ namespace FinancialEnterpriseGenie.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(int i)
+        public IActionResult Index(GraphForm graphForm)
         {
-            return View();
+            string outputs = graphForm.Type + " " + graphForm.ChosenItems[1]; 
+            return Content(outputs);
         }
         public IActionResult Index()
         {
