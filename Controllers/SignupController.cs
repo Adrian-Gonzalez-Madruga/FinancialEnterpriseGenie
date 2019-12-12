@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ Principle Author: Richard Perocho
+ This controller manages user registration and signup
+*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

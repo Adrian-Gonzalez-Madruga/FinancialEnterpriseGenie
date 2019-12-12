@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿/*
+ Principle Author: Richard Perocho
+ This class manages browser cookie handling
+*/
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,4 +1,8 @@
-﻿using FinancialEnterpriseGenie.Models;
+﻿/*
+ Principle Author: Richard Perocho
+ This class handles all type extensions
+*/
+using FinancialEnterpriseGenie.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;

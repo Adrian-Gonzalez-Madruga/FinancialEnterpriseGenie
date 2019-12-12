@@ -1,19 +1,22 @@
-﻿
+﻿<!--
+Principle Author: Richard Perocho
+This view is displayed for any non-logged in user trying to access restricted pages
+-->
 @{
     ViewData["Title"] = "NotLoggedIn";
     Layout = "_formLayout";
 }
 
-    <div class="form-block bg-grey text-center">
-        <div class="lead text-center mb-3">You are not logged in</div>
-        <div class="row">
-            <div class="col">
-                <a class="btn btn-block btn-info" asp-controller="Signin" asp-action="LoginForm">Login</a>
-            </div>
-            <div class="col">
-                <a class="btn btn-block btn-info" asp-controller="Signup" asp-action="SignupForm">Register</a>
-            </div>
+<div class="form-block bg-grey text-center">
+    <div class="lead text-center mb-3">You are not logged in</div>
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-block btn-info" asp-controller="Signin" asp-action="LoginForm">Login</a>
+        </div>
+        <div class="col">
+            <a class="btn btn-block btn-info" asp-controller="Signup" asp-action="SignupForm">Register</a>
         </div>
     </div>
+</div>
 
 

@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ Principle Author: Richard Perocho
+ This class is used as a model for signup form
+*/
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;

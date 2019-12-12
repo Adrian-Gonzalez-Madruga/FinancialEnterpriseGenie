@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿/*
+ Principle Author: Richard Perocho
+ This class handles date types for razor view select
+*/
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;

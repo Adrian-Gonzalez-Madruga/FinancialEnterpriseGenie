@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ Principle Author: Richard Perocho
+ This class is contained in the database and is the model for user credentials
+*/
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
