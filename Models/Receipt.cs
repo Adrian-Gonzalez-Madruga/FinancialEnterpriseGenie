@@ -15,8 +15,6 @@ namespace FinancialEnterpriseGenie.Models
         public int Id { get; set; }
         public double Tax { get; set; }
         public double Total { get; set; }
-        [Required(ErrorMessage = "Please Enter a Quantity Over 0")]
-        [RegularExpression(@"^[1-9][0-9]*$")]
         public int Quantity { get; set; }
         public DateTime Date { get; set; }
         public DateTime ReceiveDate { get; set; }
