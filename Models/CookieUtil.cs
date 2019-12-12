@@ -9,6 +9,7 @@ namespace FinancialEnterpriseGenie.Models
     public static class CookieUtil
     {
         public const string USER_ID_KEY = "UserId";
+        public const string CREDENTIALS_ID_KEY = "CredentialsId";
 
         public static void ClearAllCookies(HttpRequest request, HttpResponse response)
         {
@@ -28,9 +29,9 @@ namespace FinancialEnterpriseGenie.Models
             return request.Cookies[key];
         }
 
-        public static bool UserLoggedIn(HttpRequest request)
+        public static void DeleteCookie(HttpResponse response, string key)
         {
-            return request.Cookies[USER_ID_KEY] == null;
+            response.Cookies.Delete(key);
         }
     }
 }

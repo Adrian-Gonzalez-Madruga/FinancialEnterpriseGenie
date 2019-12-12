@@ -38,7 +38,7 @@ namespace FinancialEnterpriseGenie
             {
                 endpoints.MapControllerRoute(
                     "Default",
-                    "{controller=Home}/{action=Index}/{id?}"
+                    "{controller=Stats}/{action=Index}/{id?}"
                 );
             });
 

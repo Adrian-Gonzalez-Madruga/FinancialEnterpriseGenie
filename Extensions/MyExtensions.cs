@@ -13,5 +13,10 @@ namespace FinancialEnterpriseGenie.Extensions
         {
             return controller.RedirectToAction("NotLoggedIn", "Signin");
         }
+
+        public static int ToInt(this string s)
+        {
+            return Convert.ToInt32(s);
+        }
     }
 }

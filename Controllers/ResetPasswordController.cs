@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FinancialEnterpriseGenie.Extensions;
 using FinancialEnterpriseGenie.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,7 +12,7 @@ namespace FinancialEnterpriseGenie.Controllers
     {
         private GenieDatabase _context;
 
-        public ResetPasswordController(GenieDatabase context) // TODO: temporarily save credentials id to cookie, then delete when finished.
+        public ResetPasswordController(GenieDatabase context)
         {
             _context = context;
         }
@@ -32,26 +33,25 @@ namespace FinancialEnterpriseGenie.Controllers
                 return View();
             }
 
-            return RedirectToAction("SecurityQuestionForm", new { _id = credentials.Id });
+            CookieUtil.AddCookie(Response, CookieUtil.CREDENTIALS_ID_KEY, credentials.Id.ToString());
+            return RedirectToAction("SecurityQuestionForm");
         }
 
-        public IActionResult SecurityQuestionForm(int _id)
+        public IActionResult SecurityQuestionForm()
         {
-            var credentials = _context.Credentials.Find(_id);
+            var credentials = _context.Credentials.Find(CookieUtil.GetCookie(Request, CookieUtil.CREDENTIALS_ID_KEY).ToInt());
             if (credentials == null)
             {
                 return Content("something went wrong");
             }
-
-            ViewBag.Id = _id;
             ViewBag.SecurityQuestion = credentials.SecurityQuestion;
             return View();
         }
 
         [HttpPost]
-        public IActionResult SecurityQuestionForm(string _answer, int _id)
+        public IActionResult SecurityQuestionForm(string _answer)
         {
-            var credentials = _context.Credentials.Find(_id);
+            var credentials = _context.Credentials.Find(CookieUtil.GetCookie(Request, CookieUtil.CREDENTIALS_ID_KEY).ToInt());
             if (credentials == null)
             {
                 return Content("something went wrong");
@@ -67,21 +67,19 @@ namespace FinancialEnterpriseGenie.Controllers
 
             if (ViewBag.ErrorMessage != null)
             {
-                ViewBag.Id = _id;
                 ViewBag.SecurityQuestion = credentials.SecurityQuestion;
                 return View();
             }
-            return RedirectToAction("ResetPasswordForm", new { id = _id});
+            return RedirectToAction("ResetPasswordForm");
         }
 
-        public IActionResult ResetPasswordForm(int id)
+        public IActionResult ResetPasswordForm()
         {
-            ViewBag.Id = id;
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> ResetPasswordForm(string _newPassword, string _confirmPassword, int _id)
+        public async Task<IActionResult> ResetPasswordForm(string _newPassword, string _confirmPassword)
         {
             if (_newPassword == null || _newPassword.Trim() == "")
             {
@@ -93,10 +91,9 @@ namespace FinancialEnterpriseGenie.Controllers
             }
             if (ViewBag.ErrorMessage != null)
             {
-                ViewBag.Id = _id;
                 return View();
             }
-            var credentials = _context.Credentials.Find(_id);
+            var credentials = _context.Credentials.Find(CookieUtil.GetCookie(Request, CookieUtil.CREDENTIALS_ID_KEY).ToInt());
             if (credentials == null)
             {
                 return NotFound();
@@ -104,6 +101,7 @@ namespace FinancialEnterpriseGenie.Controllers
             credentials.Password = _newPassword;
 
             await _context.SaveChangesAsync();
+            CookieUtil.DeleteCookie(Response, CookieUtil.CREDENTIALS_ID_KEY);
             return RedirectToAction("LoginForm", "Signin");
         }
     }

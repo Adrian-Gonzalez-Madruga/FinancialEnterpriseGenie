@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FinancialEnterpriseGenie.Extensions;
 using FinancialEnterpriseGenie.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +20,10 @@ namespace FinancialEnterpriseGenie.Controllers
         [HttpPost]
         public IActionResult Index(GraphForm graphForm)
         {
+            if (CookieUtil.GetCookie(Request, CookieUtil.USER_ID_KEY) == null)
+            {
+                return this.NotLoggedIn();
+            }
 
             List<Item> items = _context.Items.ToList();
             List<Item> selectedItems = new List<Item>();
@@ -38,6 +43,11 @@ namespace FinancialEnterpriseGenie.Controllers
         }
         public IActionResult Index()
         {
+            if (CookieUtil.GetCookie(Request, CookieUtil.USER_ID_KEY) == null)
+            {
+                return this.NotLoggedIn();
+            }
+
             List<Item> items = _context.Items.ToList();
             ViewBag.Items = items;
             ViewBag.Graph = DefaultGraph(items);

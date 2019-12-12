@@ -20,7 +20,7 @@ namespace FinancialEnterpriseGenie.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            if (CookieUtil.UserLoggedIn(Request))
+            if (CookieUtil.GetCookie(Request, CookieUtil.USER_ID_KEY) == null)
             {
                 return this.NotLoggedIn();
             }

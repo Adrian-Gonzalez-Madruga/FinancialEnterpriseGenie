@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FinancialEnterpriseGenie.Models
 {
-    public static class BirthdayDateSelect
+    public static class DateSelect
     {
         public static SelectList Days {
             get {

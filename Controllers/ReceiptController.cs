@@ -20,7 +20,7 @@ namespace FinancialEnterpriseGenie.Controllers
 
         public IActionResult UserReceipts()
         {
-            if (CookieUtil.UserLoggedIn(Request))
+            if (CookieUtil.GetCookie(Request, CookieUtil.USER_ID_KEY) == null)
             {
                 return this.NotLoggedIn();
             }
