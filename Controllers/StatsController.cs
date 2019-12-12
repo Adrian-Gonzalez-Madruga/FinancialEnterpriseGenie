@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FinancialEnterpriseGenie.Extensions;
 using FinancialEnterpriseGenie.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +20,11 @@ namespace FinancialEnterpriseGenie.Controllers
         [HttpPost]
         public IActionResult Index(GraphForm graphForm)
         {
+            if (CookieUtil.GetCookie(Request, CookieUtil.USER_ID_KEY) == null)
+            {
+                return this.NotLoggedIn();
+            }
+
             if (graphForm.MinDate == null || graphForm.MaxDate == null || graphForm.MaxDate < graphForm.MinDate || graphForm.MinDate > graphForm.MaxDate)
             {
                 ModelState.AddModelError("MinDate", "MinDate must be before MaxDate");
@@ -64,6 +70,11 @@ namespace FinancialEnterpriseGenie.Controllers
         }
         public IActionResult Index()
         {
+            if (CookieUtil.GetCookie(Request, CookieUtil.USER_ID_KEY) == null)
+            {
+                return this.NotLoggedIn();
+            }
+
             List<Item> items = _context.Items.ToList();
             List<Sale> sales = _context.Sales.ToList();
             ViewBag.Items = items;
